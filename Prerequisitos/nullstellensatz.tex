@@ -1,0 +1,222 @@
+\subsection{Teorema de los ceros de Hilbert}
+
+El teorema fundamental del Álgebra es un teorema que sentó las bases de la geometría algebraica, ya que relaciona un objeto algebraico como lo es un polinomio con una variable, con un elemento geométrico, como el conjunto de sus raíces, bajo un campo algebraicamente cerrado.
+
+En cierto modo, el teorema de los ceros de Hilbert es un teorema que generaliza al teorema fundamental del Álgebra, hablaremos un poco más de este resultado y daremos una demostración usando algunas estructuras y resultados de los que hablaremos a continuación. Para ello, diremos que si tenemos un anillo conmutativo $R$, un álgebra es un $R$-módulo con una operación binaria $R$-bilineal, que además tiene un elemento neutro. Decimos que un álgebra ($K$-)afín es un álgebra sobre $K$ finitamente generada, y un dominio ($K$-)afín es un álgebra $K$-afín que además es un dominio entero.
+
+\begin{lemma}
+Sea $A$ un álgebra sobre un campo $K$:
+\begin{enumerate} [(a)]
+\item Si $A$ es un dominio entero y un conjunto algebraico sobre $K$, entonces es un campo.
+\item Si $A$ es un campo y está contenido en un dominio $K$-afín, entonces $A$ es algebraico.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate} [(a)]
+\item Basta con probar que $K[a]$ es campo para todo $a \in A$. Sea $a \in A$, podemos definir $\phi:K[x] \rightarrow K[a]$ tal que $\phi(f(x)) = f(a)$. Como $a$ es algebraico, $\ker(\phi) \neq \emptyset$. Además, como $K[x]$ es dominio de ideales principales, existe $f \in \ker(\phi)$ tal que $\ker(\phi) = (f)$. Y como $K[a] \subseteq A$ es dominio entero, $\ker(\phi)$ es ideal primo, y $f$ es irreducible. Por lo tanto, $\ker(f)$ es un ideal maximal, y $K[a] \approx K[x]/\ker(f)$ es campo.
+\item Supongamos que existe $a_1 \in A$ elemento no algebraico, entonces podemos decir que $A \subseteq B =K[a_1, \dots, a_n]$, siendo $B$ el dominio $K$-afín. Ordenemos a  $a_2,\dots, a_n$ de tal manera que los primeros $r$ elementos $a_1,\dots,a_r$ formen un subconjunto maximal de $\{a_1,\dots,a_n\}$ algebraicamente independiente. Sea $\mathbb{Q}(B)$ el campo de cocientes de $B$, veamos que $\mathbb{Q}(B)$ es una extensión finita de $L = K(a_1, \dots, a_r)$, así que podemos escoger una $L$-base de $\mathbb{Q}(B)$ con $m$ elementos finitos. Dado un elemento $b \in \mathbb{Q}(B)$, la multiplicación por este elemento define un endomorfismo $L$-lineal, entonces podemos construír la función $\phi: \mathbb{Q}(B) \rightarrow L^{m\times m}$ tomando la matriz de la transformación definida para cada $b \in \mathbb{Q}(B)$. Sea ahora $g \in K[a_1,\dots,a_r]$ el común denominador de todas las entradas de todas las matrices devueltas para cada $a_1,\dots,a_n$. Entonces $\phi(a_i) \in K[a_1,\dots,a_r,g^{-1}]^{m\times m}$ para toda $i \in \{1, \dots, r\}$. Gracias a las propiedades lineales de la adición y la multiplicación concluímos que:
+
+\begin{equation}\label{equivalence algebras/fields-nullstelenzats}
+\phi(B) \subseteq K[a_1,\dots,a_r,g^{-1}]^{m\times m}
+\end{equation} 
+
+$K[a_1,\dots,a_r]$ es isomorfo a un anillo de polinomios, y por lo tanto, es un dominio de factorización única. Tomemos una factorización de $g$, y sean $p_1,\dots,p_k$ sus factores irreducibles elementos de $K[a_1]$. Sea $p \in K[a_1]$ un elemento irreducible arbitrario, tenemos que $p^{-1} \in A \subseteq B$ ya que $K[a_1] \subseteq A$ y $A$ es campo. Al hacer $\phi(p^{-1})$ obtendremos la matriz diagonal con entradas igual a $p^{-1}$, puesto que $p^{-1} \in L$. Gracias a (\ref{equivalence algebras/fields-nullstelenzats}) existe $f \in K[a_1,\dots, a_r]$, y $s$ natural tal que $p^{-1} = g^{-s}\cdot f$, entonces $g^s = f\cdot p$. Como $p$ es irreducible, $p$ es un $K$-múltiplo de alguno de los $p_i$'s. Como eso se cumple para todo irreducible en $K[a_1]$, entonces todos los elementos de $K[a_1]$ son múltiplos de alguno de los $p_i$'s. Pero esto es una contradicción, ya que $(\prod_{i=1}^k p_i) + 1$ no es múltiplo de ninguno de los $p_i$.
+\end{enumerate}
+\end{proof}
+
+\begin{proposition}\label{intersection of algebras-Nullstellensatz}
+Sea $\phi: A \rightarrow B$ un homomorfismo de álgebras sobre un campo $K$, y sea $\mathfrak{m} \subset B$ un ideal maximal. Si $B$ es finitamente generada, entonces la preimagen de $\mathfrak{m}$ también es un ideal maximal.
+\end{proposition}
+
+\begin{proof}
+Podemos definir un homomorfismo $\psi: A \rightarrow B/\mathfrak{m}$ componiendo a $\phi$ con la proyección natural. Entonces, $\ker(\psi) = \mathfrak{n} := \phi^{-1}(\mathfrak{m})$. Entonces $A/\mathfrak{n}$ es isomorfo a una subálgebra de $B/\mathfrak{m}$. Por el lema anterior inciso (b), $B/\mathfrak{m}$ es algebraico, ya que $B$ es finitamente generado, y la inclusión a $B$ está dada por la propiedad universal del cociente. Además, si B no es dominio entero, hereda la propiedad de álgebra afín a $B/\mathfrak{m}$, el cual es campo. Gracias a $\psi$, $A/\mathfrak{n}$ también es algebraico, y dominio entero, entonces por el inciso (a) del lema anterior, $A/\mathfrak{n}$ es campo y $\mathfrak{n}$ es maximal.
+\end{proof}
+
+\begin{lemma}\label{points->maximal-nullstellensatz}
+Sea $K$ un campo, y $P = (\xi_1, \dots, \xi_n)$ un punto en el espacio afín, entonces el ideal:
+
+$$ \mathfrak{m}_P := (x_1 - \xi_1, \dots, x_n - \xi_n) \subseteq K[x_1,\dots, x_n] $$
+
+es un ideal maximal en $K[x_1,\dots, x_n]$.
+\end{lemma}
+
+\begin{proof}
+Por la definición del ideal es claro que dado $f \in K[x_1,\dots, x_n]$, es congruente con $f(P)$, por lo que $\mathfrak{m}_P$ es el kernel del homomorfismo ``evaluación en $P$``, de donde $K \approx K[x_1,\dots, x_n]/\mathfrak{m}_P$. Por lo tanto $\mathfrak{m}_P$ es maximal.
+\end{proof}
+
+\begin{proposition} \label{maximal -> points-nullstellensatz}
+Sea $K$ un campo algebraicamente cerrado, y sea $\mathfrak{m}$ un ideal maximal en $K[x_1,\dots,x_n]$, entonces existe un punto $P = (\xi_1,\dots,\xi_n)$ en el espacio afín tal que:
+
+$$ \mathfrak{m} = (x_1 - \xi_1,\dots,x_n - \xi_n) $$
+\end{proposition}
+
+\begin{proof}
+Sea $i \in \{1,\dots,n\}$. Gracias a la Proposición (\ref{intersection of algebras-Nullstellensatz}), tenemos que $\mathfrak{m}\cap K[x_i]$ es un ideal maximal en $x_i$. Como $K[x_i]$ es un dominio de ideales principales, $\mathfrak{m}\cap K[x_i] = (f_i)$. Además, como $(f_i)$ es maximal y estamos en un campo algebraicamente cerrado, existe $\xi_i \in K$ tal que $f_i = x - \xi_i$. Por lo tanto, $x_i - \xi_i \in \mathfrak{m}$ y $\mathfrak{m}_P \subseteq \mathfrak{m}$, de donde obtenemos la maximalidad.
+\end{proof}
+
+\begin{theorem} \label{points <-> maximal-nullstellensatz}
+Sea $K$ un campo algebraicamente cerrado, y $S \subseteq K[x_1,\dots,x_n]$ un subconjunto de polinomios. Sea $\mathcal{M}_S$ el conjunto de todos los ideales maximales $\mathfrak{m} \subseteq K[x_1,\dots,x_n]$ tales que $S \subseteq \mathfrak{m}$. Entonces la función
+
+$$ \Phi_S:Z(S) \rightarrow \mathcal{M}_S, (\xi_1,\dots,\xi_n) \rightarrow (x - \xi_1,\dots,x - \xi_n) $$
+
+es una biyección.
+\end{theorem}
+
+\begin{proof}
+Sea $P = (\xi_1,\dots,\xi_n) \in Z(S)$. Por el Lema (\ref{points->maximal-nullstellensatz}), $\Phi_S(P)$ es maximal, y para todo $f \in S$ se cumple $f(P) = 0$. Entonces, $f \in \Phi_S(P)$ y $\Phi_S(P) \in \mathcal{M}_S$. Así, $\Phi_S$ está bien definida. Por otro lado, sea $\mathfrak{m} \in \mathcal{M}_S$. Por la Proposición (\ref{maximal -> points-nullstellensatz}), Existe $P = (\xi_1,\dots,\xi_n) \in \mathbb{A}^n$ tal que $\mathfrak{m} = (x_1 - \xi_1,\dots, x_n - \xi_n)$. Como $S \subseteq \Phi_S(P)$, $P \in Z(S)$, lo que prueba la suprayectividad de $\Phi_S$.
+
+Para probar la inyectividad, sean $P = (\xi_1,\dots, \xi_n), Q = (\eta_1,\dots,\eta_n)$ elementos de $Z(S)$, tal que $\Phi_S(P) = \Phi_S(Q) = \mathfrak{m}$. Veamos que, para toda $i \in \{1, \dots, n\}$, $x - \xi_i \in \mathfrak{m}$, y $x - \eta_i \in \mathfrak{m}$, entonces $\xi_i - \eta_i \in \mathfrak{m}$ y $\xi_i = \eta_i$ porque sino, la resta resultaría en una unidad, y $\mathfrak{m}$ sería igual a $K[x_1,\dots,x_n]$.
+\end{proof}
+
+\begin{corollary}
+(Teorema de los ceros de Hillbert, primera versión) Sea $K$ un campo algebraicamente cerrado, y sea $I \subset K[x_1,\dots,x_n]$ ideal propio, entonces:
+
+$$ Z(I) \neq \emptyset $$
+\end{corollary}
+
+\begin{proof}
+Sea $\mathscr{F}_I$ la familia de todos los ideales propios que contienen a $I$, y ordenemos por contención. Entonces $I \in \mathscr{F}$, por lo que no es familia vacía, entonces por el lema de Zorn, existe $\mathfrak{m} \in \mathscr{F}_I$ ideal maximal, que contiene a $I$, y por el Teorema (\ref{points <-> maximal-nullstellensatz}), existe $P \in Z(I)$ preimagen bajo $\Phi_I$ de $\mathfrak{m}$, y $Z(I) \neq \emptyset$.
+\end{proof}
+
+Llegados a este punto podemos empezar a comprender la importancia del Teorema de los ceros de Hilbert. Si tenemos un sistema de polinomios y buscamos las soluciones, el Teorema de los ceros de Hilbert nos da una rápida respuesta acerca de la existencia de éstas, que consiste en observar que el ideal generado por nuestro sistema de polinomios sea propio. Condiciona la existencia de respuestas a sólo una verificación, y esta verificación es la obvia, ya que si nuestros polinomios generan a $K[x_1, \dots, x_n]$, entonces existen $g_1,\dots, g_n$ polinomios tales que: 
+$$ \sum_{i=1}^{n}f_ig_i = 1$$
+Y obviamente no existen soluciones que anulen a todas las $f_i$ y que se mantenga la igualdad. La verificación de que un ideal sea propio se puede realizar a través de un algoritmo que analizaremos más adelante.
+
+\subsubsection{Anillos de Jacobson}
+
+La versión completa del Teorema de los ceros de Hilbert aún nos da más información, ya que incluso es capaz de decirnos qué polinomios se pueden incluir a nuestro sistema, conservando el mismo conjunto solución, y de esta manera, conseguir una biyección entre variedades e ideales de polinomios a través de las funciones $Z$ e $I$. Probar la versión completa será nuestro siguiente objetivo.
+
+\begin{definition}
+Sea $R$ anillo.
+\begin{enumerate}[(a)]
+\item El \emph{espectro} de $R$ es la familia de todos los ideales primos de $R$:
+
+$$ \spec(R) = \{P \subset R | P \textrm{ es ideal primo }\} $$
+
+\item El \emph{espectro maximal} de $R$ es la familia de todos los ideales maximales de $R$:
+
+$$ \specmax(R) = \{P \subset R | P \textrm{ es ideal maximal }\}$$
+
+\item El \emph{espectro de Rabinowitsch} de $R$ es el conjunto:
+
+$$ \specrab(R) = \{\mathfrak{m} \cap R | \mathfrak{m} \in \textrm{Spec}_{\textrm{max}}(R[x])\}$$
+
+\end{enumerate}
+\end{definition}
+
+Nótese que:
+
+$$ \specrab(R) \subseteq \spec(R) $$
+
+Gracias a que si $S$ es una extensión de $R$, y $P$ es ideal primo en $S$, entonces $S \cap R$ es ideal primo en $R$.
+
+Recordemos que el radical de un ideal $I$ en un anillo de polinomios se define como:
+
+$$\sqrt{I} = {f \in K[x_1,\dots,x_n]|(\exists n \in \mathbb{N}) (f^n \in I)}$$
+
+Un ideal $I$ se considera radical si $I = \sqrt{I}$. Es de notar que todo ideal primo es radical.
+
+\begin{lemma}\label{radical sub spec - nullstellensatz}
+Sea $R$ un anillo, $I \subseteq R$ un ideal, y $\mathcal{M} \subseteq \spec(R)$ un subconjunto. Entonces:
+
+$$\sqrt{I} \subseteq \bigcap_{P \in \mathcal{M}, I \subseteq P} P.$$
+
+Si no existe $P \in \mathcal{M}$ tal que $I \subseteq P$, entonces la intersección se interpreta como $R$.
+
+\end{lemma}
+\begin{proof}
+Sea $a \in \sqrt{I}$, entonces $a^k \in I$ para alguna $k \in \mathbb{N}$. Sea $P \in \mathcal{M}$ con $I \subseteq P$, entonces $a^k \in P$. Como $P$ es primo se sigue que $a \in P$.
+\end{proof}
+
+\begin{proposition}\label{radical = specrab - nullstellensatz}
+Sea $R$ un anillo, e $I \subseteq R$ un ideal. Entonces:
+
+$$\sqrt{I} = \bigcap_{P \in \specrab(R), I \subseteq P} P.$$
+
+Si no existe $P \in \specrab(R)$ tal que $I \subseteq P$, entonces la intersección se interpreta como $R$.
+\end{proposition}
+
+\begin{proof}
+La inclusión ``$\subseteq$`` se sigue del lema anterior, y del hecho que $\specrab(R) \subseteq \spec(R)$.
+Para probar la otra contención, sea $a$ en la intersección. Consideremos el ideal:
+
+$$ J := (I \cup \{ax - 1\})_{R[x]} \subseteq R[x] $$
+
+Generado por $I$ y por $\{ax - 1\}$. Supongamos que $J \subset R[x]$ es un ideal propio. Por el lema de Zorn, existe $\mathfrak{m} \in \specmax(R[x])$ tal que $J \subseteq \mathfrak{m}$. Entonces tenemos que $I \subseteq R \cap J \subseteq R \cap \mathfrak{m} \in \specrab(R)$. Entonces, por hipótesis, $a \in R \cap \mathfrak{m}$ y $a \in \mathfrak{m}$. Pero, como $J \subseteq \mathfrak{m}$, $ax - 1 \in \mathfrak{m}$, entonces $\mathfrak{m} =  R[x]$, una contradicción. Por lo tanto, $J = R[x]$, así que existe $n \in \mathbb{N}$, $g, g_1, \dots, g_n \in R[x]$ y $b_1,\dots,b_n \in I$ tales que:
+
+$$ 1 = \sum_{j=1}^ng_jb_j + g(ax - 1) $$
+
+Sea $R[x, x^{-1}]$ el anillo de polinomios de Laurent, y consideremos la función $\phi: R[x] \rightarrow R[x,x^{-1}]$ definida por $\phi(f) = f(x^{-1})$, entonces, para $k = \textrm{max}\{\deg(g_1),\dots,\deg(g_n),\deg(g) + 1\}$, podemos definir para toda $i \in \{1,\dots,n\}$, polinomios $h_i := x^k\phi(g_i) \in R[x]$, $h := x^{k-1}\phi(g) \in R[x]$, tal que, aplicando $\phi$ a ambos lados de la igualdad y multiplicando ambos lados por $x^k$ obtenemos:
+
+$$ x^k = \sum_{j = 1}^nh_jb_j + h(a - x) $$
+
+Como todos los términos de la igualdad son elementos de $R[x]$, podemos evaluar $x = a$, y obtenemos:
+
+$$ a^k = \sum_{j = 1}^nh_j(a)b_j \in I $$
+
+Por lo tanto, $a \in \sqrt{I}$.
+\end{proof}
+
+Tenemos el siguiente Corolario.
+
+\begin{corollary}\label{radical = spec - nullstellensatz}
+Sea $R$ un anillo, e $I \subseteq R$ un ideal. Entonces:
+
+$$\sqrt{I} = \bigcap_{P \in \spec(R), I \subseteq P} P.$$
+
+Si no existe $P \in \spec(R)$ tal que $I \subseteq P$, entonces la intersección se interpreta como $R$.
+\end{corollary}
+
+\begin{proof}
+Se sigue del Lema (\ref{radical sub spec - nullstellensatz}) y de la Proposición (\ref{radical = specrab - nullstellensatz}).
+\end{proof}
+
+\begin{theorem} \label{algebras radical = specmax - nullstellensatz}
+Sea $A$ un álgebra afín, e $I \subseteq A$ un ideal. Entonces:
+
+$$\sqrt{I} = \bigcap_{\mathfrak{m} \in \specmax(A), I \subseteq \mathfrak{m}} \mathfrak{m}.$$
+
+Si no existe $\mathfrak{m} \in \spec(A)$ tal que $I \subseteq \mathfrak{m}$, entonces la intersección se interpreta como $A$.
+\end{theorem}
+
+\begin{proof}
+Sea $P \in \specrab(A)$, entonces $P = A \cap \mathfrak{m}$ con $\mathfrak{m} \in \specmax{A[x]}$, pero $A[x]$ es un álgebra afín, entonces por la Proposición (\ref{intersection of algebras-Nullstellensatz}), $P \in \specmax(A)$. Por lo tanto:
+
+$$ \specrab(A) \subseteq \specmax(A)$$
+
+Así, el Lema (\ref{radical sub spec - nullstellensatz}) y la Proposición (\ref{radical = specrab - nullstellensatz}) prueban la igualdad.
+\end{proof}
+
+Tratando de generalizar el resultado del teorema anterior, es como nace la definición de anillo de Jacobson.
+
+\begin{definition}
+Un anillo $R$ es un \emph{anillo de Jacobson}, si para cada $I \subset R$ ideal propio, se cumpla que:
+
+$$\sqrt{I} = \bigcap_{\mathfrak{m} \in \specmax(R), I \subseteq \mathfrak{m}} \mathfrak{m}.$$
+
+\end{definition}
+
+Esta definición sirve, entre otras cosas, para generalizar aún más el Teorema de los ceros de Hilbert. En efecto, uno de los resultados conocidos de anillos de Jacobson dice que si un anillo es de Jacobson, entonces cualquier álgebra afín es de Jacobson, y que las intersecciones de ideales maximales de estas álgebras con el anillo conserva su maximalidad en el anillo. Por lo tanto, también nos ayuda a descartar sistemas polinomiales sin soluciones incluso en estos anillos.
+
+Ahora podemos probar la versión completa del Teorema de los ceros de Hilbert.
+
+\begin{theorem}(Teorema de los ceros de Hilbert, versión completa)
+Sea $K$ un campo algebraicamente cerrado, y sea $J \subseteq K[x_1,\dots,x_n]$ ideal. Entonces
+
+$$ I(Z(J)) = \sqrt{J}$$
+\end{theorem}
+
+\begin{proof}
+Probemos primero ``$\supseteq$``. Sea $f \in \sqrt{J}$, entonces existe $k \in \mathbb{N}$ tal que $f^k \in J$, entonces, para todo $P \in Z(J)$ se tiene que $f^k(P) = 0$, y $f(P) = 0$. Por lo tanto $f \in I(Z(J))$.
+
+Probemos la otra contención. Por el Teorema (\ref{algebras radical = specmax - nullstellensatz}) basta con probar que, dados $f\in I(Z(J))$, y $\mathfrak{m} \in \specmax(K[x_1, \dots, x_n])$ tal que $I \subseteq \mathfrak{m}$, se cumpla que $f\in \mathfrak{m}$; pero por el Teorema (\ref{points <-> maximal-nullstellensatz}), existe $(\xi_1,\dots,\xi_n) \in Z(J)$ tal que $\mathfrak{m} = (x - \xi_1,\dots,x - \xi_n)$, entonces $f(\xi_1,\dots,\xi_n) = 0$ y $f \in \mathfrak{m}$. Por lo tanto, se cumple la segunda contención.
+\end{proof}
+
+\subsection{Variedades Proyectivas}
+
+
+
+\subsection{Funciones Racionales}
+
+\section{Bases de Hilbert}

@@ -22,6 +22,7 @@
 
 % Add `customfont' in the document class option to use this section
 
+\usepackage[utf8]{inputenc}
 \ifsetCustomFont
   % Set your custom font here and use `customfont' in options. Leave empty to
   % load computer modern font (default LaTeX font).
@@ -47,7 +48,15 @@
 % ************************* Algorithms and Pseudocode **************************
 
 %\usepackage{algpseudocode}
+\usepackage[spanish,onelanguage]{algorithm2e}
 
+
+% *********************************** Math ************************************
+
+\usepackage{amsmath}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{amsfonts}
 
 % ********************Captions and Hyperreferencing / URL **********************
 
@@ -73,6 +82,12 @@
 % This is for people stuck with older versions of texlive
 %\usepackage{sty/caption/subcaption}
 \usepackage{subcaption}
+
+% ********************************** Lists *************************************
+
+\usepackage{enumerate}
+\usepackage[spanish]{babel}
+\usepackage{listings}
 
 % ********************************** Tables ************************************
 \usepackage{booktabs} % For professional looking tables
@@ -189,3 +204,26 @@
 %\fi
 
 % Example todo: \mynote{Hey! I have a note}
+
+% *****************************************************************************
+% ************************** Custom Environments ******************************
+
+\newcommand{\mon}[1] {\textrm{Mon}(#1)}
+\newcommand{\lm}[1] {\textrm{LM}(#1)}
+\newcommand{\lc}[1] {\textrm{LC}(#1)}
+\newcommand{\lt}[1] {\textrm{LT}(#1)}
+\newcommand{\spec}{\textrm{Spec}}
+\newcommand{\specmax}{\textrm{Spec}_{\textrm{max}}}
+\newcommand{\specrab}{\textrm{Spec}_{\textrm{rab}}}
+\SetKwRepeat{Do}{hacer}{mientras}%
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Teorema}[section] % reset theorem numbering for each chapter
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición} % definition numbers are dependent on theorem numbers
+\newtheorem{corollary}[theorem]{Corolario} % same for corollary numbers
+\newtheorem{proposition}[theorem]{Proposición} % same for proposition numbers
+\newtheorem{example}[theorem]{Ejemplo} % same for example numbers
+\newtheorem{lemma}[theorem]{Lema} % same for lemma numbers
+\newtheorem{algo}[theorem]{Algoritmo} % same for algorithm numbers

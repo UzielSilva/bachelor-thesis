@@ -1,0 +1,134 @@
+\section{Variedades afines y proyectivas}
+
+Las variedades son estructuras muy importantes en la geometría algebraica, gracias a ellas y al teorema de los ceros de Hilbert tenemos equivalencias entre ideales del anillo de polinomios y conjuntos de puntos en un espacio.
+
+\subsection{Variedades afines}
+
+Sea $n \in N$, y sea $K$ un campo algebraicamente cerrado. Sea $\mathbb{A}^n$ el espacio ($K$-)afín de $n$ dimensiones, es decir:
+
+$$\mathbb{A}^n = \{(a_1, \dots, a_n)|i \in \{1, \dots, n\}, a_i \in K\}$$
+
+Denotaremos por $K[x_1,\dots,x_n]$ al anillo de polinomios con coeficientes en $K$ con $n$ indeterminadas, y por $\mathcal{P}(S)$ al conjunto potencia del conjunto $S$.
+
+Observemos que los elementos de $K[x_1,\dots, x_n]$ se pueden interpretar como funciones $f:\mathbb{A}^n \rightarrow K$.
+
+\begin{definition}
+Sea $A = K[x_1,\dots,x_n]$. Podemos definir la función $Z:\mathcal{P}(A) \rightarrow \mathcal{P}(\mathbb{A}^n)$ bajo la siguiente regla de correspondencia:
+
+$$ Z(\mathscr{F}) = \{P \in \mathbb{A}^n | (\forall f \in \mathscr{F})( f(P) = 0) \} $$
+
+Si $k\in \mathbb{N}$ y $f_1,\dots,f_k \in K[x_1,\dots,x_n]$, $Z(f_1,\dots,f_k) := Z(\{f_1,\dots,f_k\})$. Observemos que si $\mathfrak{a}$ es el ideal generado por $\mathscr{F}$, entonces, $Z(\mathscr{F}) = Z(\mathfrak{a})$.
+\end{definition}
+
+\begin{definition}
+Un subconjunto $Y$ de $\mathbb{A}^n$ es un conjunto \emph{algebraico} si existe un subconjunto $T \subseteq K[x_1, \dots, x_n]$ tal que $Y = Z(T)$.
+\end{definition}
+
+De la definición se desprende la siguiente proposición.
+
+\begin{proposition}\label{zariski topology}
+\begin{enumerate}[(a)]
+\item $\emptyset$ y $\mathbb{A}^n$ son conjuntos algebraicos. 
+\item La intersección de cualquier familia de conjuntos algebraicos es un conjunto algebraico.
+\item La unión de dos conjuntos algebraicos es un conjunto algebraico.  
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}[(a)]
+\item Sea $c \in K$, y sea $\bar{c} \in K[x_1, \dots, x_n]$ el polinomio constante correspondiente. Entonces, si $c \neq 0$, $Z({\bar{c}}) = \emptyset$; y si $c = 0$, $Z({\bar{c}}) = \mathbb{A}^n$.
+\item Sea $\mathscr{F}$ una familia de conjuntos algebraicos, y sea $Y \in \mathscr{F}$. Existe un subconjunto $I(Y) \subseteq K[x_1, \dots, x_n]$ tal que $Y = Z(I(Y))$. Es de notar que se cumple lo siguiente:
+
+$$\left(\forall Y \in \mathscr{F}\right)\left(\forall f \in I(Y)\right)\left(\forall x \in \bigcap \mathscr{F} \subseteq Y\right)\left(f(x) = 0\right)$$
+
+Entonces, $\bigcap \mathscr{F} \subseteq Z\left(\bigcup_{Y \in \mathscr{F}} I(Y)\right)$. 
+
+Ahora, sea $x \in Z\left(\bigcup_{Y \in \mathscr{F}} I(Y)\right)$, entonces $x$ cumple que para cualquier $f \in \bigcup_{Y \in \mathscr{F}} I(Y)$, $f(x) = 0$. Entonces:
+
+$$(\forall Y \in \mathscr{F})(x \in Z(I(Y)) = Y)$$
+
+y $x \in \bigcap\mathscr{F}$. Por lo tanto $\bigcap \mathscr{F} = Z\left(\bigcup_{Y \in \mathscr{F}} I(Y)\right)$.
+
+\item Sean $Y_1, Y_2 \subseteq \mathbb{A}^n$ conjuntos algebraicos, sea $Y_1 = Z(T_1), Y_2 = Z(T_2)$, y sea $T_1T_2 = \{f\cdot g|f \in T_1, g \in T_2\}$. Veamos que $Y_1\cup Y_2 = Z(T_1T_2)$. Sea $x \in Y_1\cup Y_2, h = f\cdot g \in T_1T_2$, supongamos que $x \in Y_1$, entonces, para cada $t \in  T_1$ se cumple que $t(x) = 0$, en particular para $t = f$. Por lo tanto, $f(x)\cdot g(x) = 0$ y $h(x) = 0$, lo que prueba $Y_1 \cup Y_2 \subseteq Z(T_1T_2)$. Para probar la otra contención, sea $x \in Z(T_1T_2)$. Si $x \not \in Y_1$, existe $f \in T_1$ tal que $f(x) \neq 0$, Sea $G = \{ f\cdot g | g \in T_2 \}$, y $h = f\cdot g \in G$. Como $G \subset T_1T_2$, $h(x) = 0$, y $g(x) = 0$. Por lo tanto, $x \in Y_2$.
+
+\end{enumerate}
+\end{proof}
+
+\begin{definition}
+Por la proposición anterior, podemos definir a la \emph{Topología de Zariski} en $\mathbb{A}^n$ tomando como abiertos a los complementos de los conjuntos algebraicos.
+\end{definition}
+
+\begin{example}
+Consideremos la topología de Zariski en $\mathbb{A}^1$. Sea $C$ conjunto algebraico, entonces existe $T \subset K[x]$ tal que $C = Z(T) = Z((T)_{K[x]})$. Como $K[x]$ es dominio de ideales principales, existe $f \in K[x]$ tal que $(T)_{K[x]} = (f)$, entonces $Z(f)$ sólo puede ser finito, o $\mathbb{A}^1$, en caso de que $f$ sea el polinomio constante 0. Además, dado un subconjunto finito $A := {a_1,\dots,a_k}\subset\mathbb{A}^1$, para cada $i \in \{1,\dots,k\}$ existe $b_i \in K$ tal que $a_i = (b_i)$. Así que $A$ determina un polinomio $f = (x-b_1)\cdots(x-b_k)$, tal que $A = Z(f)$. Por lo tanto, la topología de Zariski coincide en este caso con la topología cofinita.
+\end{example}
+
+\begin{definition}
+Dado un espacio topológico, un subconjunto no vacío es \emph{irreducible} si no puede expresarse como la unión de dos subconjuntos cerrados propios. El subconjunto vacío no se considera irreducible.
+\end{definition}
+
+\begin{example}
+Sea $A$ conjunto con cardinalidad infinita, con la topología cofinita. Entonces $A$ es irreducible, ya que los cerrados propios son los subconjuntos finitos, por lo tanto la unión de dos de ellos no puede ser $A$. 
+\end{example}
+
+\begin{example}
+En $\mathbb{A}^2$, $Z(x^3 + y^3 + xy^2 + x^2y - x - y)$ no es irreducible, ya que es unión de $Z(x^2 + y^2 - 1)$ y $Z(x - y)$, una circunferencia y una recta(véase la demostración de la unión de conjuntos algebraicos de la Proposición \ref{zariski topology}).
+\end{example}
+
+\begin{definition}
+Una \emph{variedad afín} es un subconjunto cerrado irreducible de $\mathbb{A}^n$ con la topología inducida. Un subconjunto abierto irreducible es una \emph{variedad quasi-afín}.
+\end{definition}
+
+Cabe preguntarse si podemos definir una función inverza para la función $Z$, y así poder establecer relaciones biunívocas entre variedades e ideales. La siguiente definición introduce este enfoque.
+
+\begin{definition}
+Sea $A = K[x_1,\dots,x_n]$. Podemos definir la función ideal $I:\mathcal{P}(\mathbb{A}^n) \rightarrow \mathcal{P}(A)$ bajo la siguiente regla de correspondencia:
+
+$$ Z(Y) = \{f \in A | (\forall P \in Y)( f(P) = 0) \} $$
+
+\end{definition}
+
+Ahora tenemos una función que relaciona a subconjuntos del espacio afín con ideales, es de notar que $I$ no es función inversa de $Z$, sin embargo, ambas cumplen propiedades con las que podemos trabajar, como lo indica la siguiente proposición.
+
+\begin{proposition}
+\begin{enumerate}[(a)]
+\item Si $T_1 \subseteq T_2$ son subcojuntos de $K[x_1,\dots, x_n]$, entonces $Z(T_1) \supseteq Z(T_2)$.
+\item Si $Y_1 \subseteq Y_2$ son subcojuntos de $\mathbb{A}^n$, entonces $I(Y_1) \supseteq I(Y_2)$.
+\item Para cualesquiera dos subconjuntos $Y_1, Y_2 \subseteq \mathbb{A}^n$, se cumple que $I(Y_1\cup Y_2) = I(Y_1)\cup I(Y_2)$.
+\item Para cualquier ideal $\mathfrak{a} \subseteq K[x_1, \dots, x_2]$, $I(Z(\mathfrak{a})) = \sqrt{\mathfrak{a}}$, el radical de $\mathfrak{a}$.
+\item Para cualquier subconjunto $Y \subseteq \mathbb{A}^n$, $Z(I(Y)) = \bar{Y}$, la cerradura de $Y$. 
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate} [(a)]
+\item Si $x \in Z(T_2)$, entonces, para toda $f \in T_2$ se cumple $f(x) = 0$. Como $T_1 \subseteq T_2$, en particular para toda $f \in T_2$ se cumple $f(x) = 0$, entonces $x \in Z(T_1)$.
+\item Es análogo a (a).
+\item Sea $f \in I(Y_1 \cup Y_2)$, sea $x \in Y_1\cup Y_2$, sin pérdida de generalidad $x \in Y_1$, entonces $f(x) = 0$, por lo tanto $f \in I(Y_1)$, y $f \in I(Y_1)\cap I(Y_2)$. Ahora, sea $f \in I(Y_1)\cap I(Y_2)$, entonces, $f \in I(Y_1)$, por lo tanto, para todo $x \in Y_1$, $f(x) = 0$, además, como $f \in I(Y_2)$, entonces para todo $x \in Y_2$, $f(x) = 0$, entonces $f \in I(Y_1 \cup Y_2)$.
+\item Este resultado es consecuencia del \emph{Teorema de los ceros de Hilbert}, del cual hablaremos a continuación.
+\item Veamos que $Y \subseteq Z(I(Y))$, el cual es un conjunto cerrado, entonces basta con probar que es el cerrado más pequeno que contiene a $Y$. Sea $W$ un conjunto cerrado que contiene a $Y$, entonces $W = Z(\mathfrak{a})$ para algún ideal $\mathfrak{a}$. Entonces $Z(\mathfrak{a}) \supseteq Y$, y por el inciso (b), $I(Z(\mathfrak{a})) \subseteq I(Y)$. Pero $\mathfrak{a} \subseteq I(Z(\mathfrak{a}))$, entonces, por (a), tenemos que $W = Z(\mathfrak{a}) \supseteq Z(I(Y))$. Por lo tanto, $\bar{Y} = Z(I(Y))$.
+\end{enumerate}
+\end{proof}
+
+Es de notar que el inciso (d) de la proposición anterior hace referencia al \emph{Teorema de los ceros de Hilbert}, este es un teorema muy importante de la geometría algebraica que revisaremos más a fondo en una sección posterior. 
+
+La proposición anterior responde la pregunta acerca de la relación biunívoca entre ideales y variedades, como lo indica el siguiente corolario. 
+
+\begin{corollary}
+Un conjunto algebraico es irreducible sí y sólo sí corresponde a un ideal primo bajo las funciones $Z, I$.
+\end{corollary}
+
+\begin{proof}
+Si $fg \in I(Y)$, entonces $Y \subseteq Z(fg) = Z(f)\cup Z(g)$. Entonces $Y = (Y \cap Z(f)) \cup (Y \cap Z(g))$, ambos subconjuntos cerrados de $Y$. Como $Y$ es irreducible, $Y = Y \cap Z(f)$ ó $Y = Y \cap Z(f)$, por lo que $Y \subseteq Z(f)$ ó $Y \subseteq Z(g)$, y $f \in I(Y)$ ó $g \in I(Y)$
+
+Por otro lado, sea $\mathfrak{p}$ un ideal primo, y supongamos que $Z(\mathfrak{p}) = Y_1 \cup Y_2$. Entonces $\mathfrak{p} = I(Y_1)\cap I(Y_2)$. entonces tenemos que $\mathfrak{p} = I(Y_1)$ ó $\mathfrak{p} = I(Y_2)$. Entonces $Z(\mathfrak{p}) = Y_1$ ó $Z(\mathfrak{p}) = Y_2$. Por lo tanto es irreducible.
+\end{proof}
+
+Usemos la estructura de ideal que obtenemos de evaluar conjuntos algebraicos bajo la función $I$.
+
+\begin{definition}
+Sea $Y \subseteq \mathbb{A}^n$ un conjunto algebraico, definimos al anillo de coordenadas $A(Y)$ de $Y$, como $A(Y) = K[x_1, \dots, x_n]/I(Y)$.
+\end{definition}
+
+\begin{example}
+Sea $Y$ la curva $y = x^2$ definida en el plano, es decir, $Y = Z(\{y - x^2\}) \subseteq \mathbb{A}^2$. Entonces $A(Y)$ es isomorfo a $K[x]$, ya que existe un homomorfismo de anillos $\phi:K[x, y] \rightarrow K[x]$ definido por la "sustitución", es decir, $\phi(f(x, y)) = f(x, x^2)$; que cumple que $\ker(f) = I(Y)$, y además es claramente suprayectivo, así que,, por el primer teorema de isomorfismo tenemos que $K[x,y]/I(Y) \approx K[x]$
+\end{example}

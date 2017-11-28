@@ -1,0 +1,306 @@
+\chapter{Bases de Gröbner}
+
+Muchas de las estructuras algebraicas no son constructivas, es decir, no tienen un proceso definido para obtenerse. Son muy comunes y populares los teoremas de existencia, y a través de estos podemos trabajar. Sin embargo, las computadoras necesitan pasos definidos para construir y trabajar con estructuras. 
+
+Las bases de Gröbner son muy útiles por esta razón, ya que a través de ellas podemos obtener información de una estructura algebraica a través de pasos bien definidos. Entre las aplicaciones de las bases de Gröbner figuran: una forma de evaluar si un polinomio pertenece a un ideal de un anillo de polinomios, métodos constructivos para encontrar el kernel de un morfismo de anillos, la obtención de la dimensión de un álgebra afín, intersecciones de ideales, resolución de sistemas de ecuaciones polinomiales, entre otras.
+
+Hablaremos un poco sobre bases de Gröbner para entender mejor el proceso que realizan programas como Macaulay2, mismo en el que nos enfocaremos para estudiar las intersecciones completas.
+
+\subsection{Definición}
+
+Para entender las bases de Gröbner debemos definir primero unas cuantas cosas. En este capítulo, $K$ es un campo, y $K[x_1, \dots , x_n]$ es el anillo de polinomios con coeficientes en $K$, y con $n$ indeterminadas. 
+
+\begin{definition}Decimos que un polinomio $f \in K[x_1, \dots, x_n], f \neq 0$ es un \emph{monomio} si se cumple que: 
+$$ (\forall i \in \{1,\dots,n\})(\exists k_i \in \mathbb{N}_0)(f = x_1^{k_1}x_2^{k_2}\cdots x_n^{k_n}) $$
+Además, si un polinomio $f$ es de la forma $c\cdot t$ con $c \in K\setminus \{0\}$ y $t$ monomio, entonces decimos que f es un \emph{término}.\end{definition}
+
+Denotaremos como $T(f)$ como el conjunto de todos los términos de $f$, de esta manera, $f = \sum_{ct \in T(f)} ct$. Más aún, diremos que $\mon{f}$ denota al conjunto de todos los monomios en $f$.
+
+\begin{definition}
+\begin{enumerate}[a)]
+\item Sea $M$ el conjunto de todos los monomios en $K[x_1, \dots, x_n]$. Decimos que un buen orden $(\leq)$ sobre $M$ es un orden monomial si se respeta bajo la multiplicación. Es decir: 
+$$ (\forall t_1, t_2, s \in M)(t_1 \leq  t_2 \Rightarrow s\cdot t_1 \leq s\cdot t_2) $$
+\item Supongamos que ($\leq$) es un orden monomial. Si $f \in K[x_1, \dots, x_n]$ es un polinomio distinto de cero, denotamos como $\lm{f}$ al elemento mayor de $\mon{f}$. Más aún, denotamos como $\lc{f}$ al coeficiente de $\lm{f}$ en $f$, y $\lt{f} = \lc{f}\cdot\lm{f}$. Se les conoce como \emph{monomio principal}, \emph{coeficiente principal} y \emph{término principal} de $f$ a $\lm{f}, \lc{f}$ y $\lt{f}$ respectivamente.
+\end{enumerate}
+\end{definition}
+
+Recordemos que todo subconjunto en un conjunto bien ordenado tiene un primer elemento. Supongamos que $f \neq 1$ es el mínimo elemento de $M$, pero entonces $f \leq 1$ y $f^2 \leq f$, una contradicción. Por lo tanto, para todo elemento de $f \in M$ se cumple que $1 \leq f$.
+
+
+
+Veamos algunos ejemplos de órdenes monomiales.
+
+\begin{example} Sean $t = x_1^{e_1}\cdots x_n^{e_n}$ y $t' = x_1^{e_1'}\cdots x_n^{e_n'}$ monomios.
+\begin{enumerate} [(1)]
+\item El \emph{orden lexicográfico} es tal que $t \leq t'$ si $t = t'$ o $e_i < e_i'$ para la $i$ más pequeña que cumpla que $e_i \neq e_i'$.
+\item El \emph{orden lexicográfico de grado inverso(grevlex)} es tal que $t \leq t'$ si $t = t'$, ó $\deg{(t)} := \sum_{i=1}^n e_i < \deg{(t')}$, ó $\deg{(t)} = \deg{(t')}$ y $e_i > e_i'$ para el índice $i$ más grande tal que $e_i \neq e_i'$
+\item Dados ($\leq_1$) y ($\leq_2$) órdenes monomiales en $K[x_1,\cdots,x_k]$ y $K[x_{k+1},\cdots,x_n]$, el \emph{orden de bloque} con ($\leq_1$) dominante es tal que $t \leq t'$ si $x_1^{e_1}\cdots x_k^{e_k} <_1 x_1^{e_1'}\cdots x_k^{e_k'}$, ó $x_1^{e_1}\cdots x_k^{e_k} =_1 x_1^{e_1'}\cdots x_k^{e_k'}$ y  $x_{k+1}^{e_{k+1}}\cdots x_n^{e_n} \leq_2 x_{k+1}^{e_{k+1}'}\cdots x_n^{e_n'}$
+\end{enumerate}
+\end{example}
+
+\begin{definition}
+\begin{enumerate}[(a)]
+\item Sea $S$ un conjunto de polinomios en $K[x_1, \dots, x_n]$. El ideal
+$$ L(S) = (\lm{f} | f \in S)_{K[x_1,\cdots, x_n]} $$
+es el \emph{ideal de monomios principales} de $S$.
+\item Sea $I \subseteq K[x_1,\dots,x_n]$ un ideal. Una \emph{base de Gröbner} del ideal es un subconjunto finito $G \subseteq I$ tal que:
+$$L(I) = L(G)$$
+\end{enumerate}
+\end{definition}
+
+Observemos que todo ideal tiene una base de Gröbner por trabajar en anillos noetherianos. Es de resaltar que la base de Gröbner depende del orden monomial escogido.
+
+Veamos unos ejemplos para entender mejor lo que es una base de Gröbner.
+
+\begin{example}
+Sea $A = k[x,y,z]$, y sea $I\subseteq A$ el ideal generado por $S = \{x^2 - y^2, x^2 - z^2, y^2 - z^2\}$. Veamos que, tomando el orden lexicográfico, $S$ no es una base de Gröbner, ya que $z^2 \not\in L(S)$. Sin embargo, $S' = S \cup \{z^2\}$ sí lo es.
+\end{example}
+
+Ataquemos el objetivo principal de este capítulo, que es definir una construcción metódica para nuestras estructuras. El primer paso es hablar de formas normales.
+\begin{definition} \label{normal form}
+Sea $S = \{g_1, \dots, g_r\} \subseteq K[x_1,\dots, x_r]$ un conjunto finito de polinomios, y $f \in K[x_1,\dots, x_r]$.
+\begin{enumerate}[(a)]
+\item Decimos que $f$ está en \emph{forma normal} con respecto a $S$ si ningún $t \in \mon{f}$ es divisible por el monomio principal $\lm{g_i}$ de algún $g_i \in S$.
+\item Un polinomio $f^*$ es la \emph{forma normal} de $f$ con respecto a $S$ si cumple las siguientes condiciones:
+\begin{itemize}
+\item $f^*$ está en forma normal con respecto a $S$.
+\item Existen $h_1,\dots, h_r \in K[x_1,\dots,x_n]$ tales que:
+$$f^* - f = \sum_{i=1}^r h_ig_i\textrm{, y }(\forall i \in \{1,\dots,r\})(\lm{h_ig_i} \leq \lm{f})$$
+\end{itemize}
+\end{enumerate}
+\end{definition}
+
+Veamos que si $f^*$ es forma normal de $f$ con respecto a $S$, entonces ambos son congruentes módulo el ideal generado por $S$, pero no al contrario. Sea $S = \{x_1, x_1+1\}$, entonces 1 es congruente con 0, pero 0 no es una forma normal de 1, ya que no cumple con la desigualdad de la segunda condición de (b). Más aún, $x_1$ tiene dos formas normales, $0$ y $-1$, así que, en general, las formas normales no son únicas.
+
+Esta es la primera estructura que construiremos a través de pasos concretos. A continuación se describe un algoritmo para encontrar la forma normal de un polinomio con respecto a un conjunto $S$, es cual a la vez prueba la existencia de las formas normales para cada polinomio.
+
+\begin{algo}Cálculo de forma normal.
+
+\begin{algorithm}[H]
+ \KwData{Un conjunto finito $S = \{g_1, \dots, g_r\} \subseteq K[x_1,\dots,x_n]$, y un polinomio $f \in K[x_1,\dots,x_n]$}
+ \KwResult{Una forma normal $f^*$ de $f$ con respecto a $S$, y, si se desea, los polinomios $h_1, \dots, h_r$ que satisfacen~\ref{normal form}(b) }
+ $f^*$ := $f$\;
+ $h_i$ := $0$ para toda $i$\;
+ $\mathcal{M}$ := $\{(t, i)| t \in \mon{f^*} \textrm{ tal que } \lm{g_i}\textrm{ divida a }t \}$\;
+ \While{$\mathcal{M} \neq \emptyset$}{
+  $p$ := $(t, i) \in \mathcal{M}$ con $t$ maximal\;
+  $c$ := coeficiente de la primera entrada de $p$ en $f^*$\;
+  $f^*$ := $f^* - \frac{ct}{\lc{g_i}}g_i$\;
+  $h_i$ := $h_i + \frac{ct}{\lc{g_i}}$\;
+ }
+ \Return $f^*, h_1, \dots, h_r$\;
+\end{algorithm}
+\end{algo}
+
+Al redefinir a $f^*$, estamos eliminando de $\mon{f^*}$ a un término que rompe la normalidad, y agregamos elementos más pequeños. Por lo tanto, el algoritmo siempre va a terminar porque el orden monomial es un buen orden.
+
+Hagamos un ejemplo para entender mejor cómo funciona nuestro algoritmo:
+
+\begin{example}Cálculo de forma normal.
+
+\begin{algorithm}[H]
+ \KwData{$S =\{x^2 - y^2, x^2 - z^2, y^2 - z^2\} \subseteq K[x, y, z]$, $f = 2y^2z^2 - 2x^2z^2$}
+ \KwResult{ 0, ya que $f$ está generada por $L(S)$}
+ $f^*$ := $f$\;
+ $h_i$ := $0$ para toda $i$\;
+ $\mathcal{M}$ := $\{(y^2z^2, 3), (x^2z^2, 1), (x^2z^2, 2)\}$\;
+ 
+ \tcp{comienzo del ciclo, continuamos porque $\mathcal{M} \neq \emptyset$}
+ 
+  $p$ := $(x^2z^2, 1)$;\tcp{podría ser cualquiera de $(x^2z^2, 1), (x^2z^2, 2)$}
+  $c$ := -2\;
+  $f^*$ := $(2y^2z^2 - 2x^2z^2) - \frac{-2(x^2z^2)}{x^2}(x^2 - y^2) = 0$\;
+  $h_3$ := $-2z^2$\;
+ 
+ \tcp{final del ciclo}
+ 
+ \Return $0, h_1 = 0, h_2 = 0, h_3 = -2z^2$\;
+\end{algorithm}
+\end{example}
+
+La condición de que $S$ sea una base de Gröbner de un ideal $I$ es suficiente para que un polinomio tenga precisamente una forma normal con respecto a $G$, como lo indica el siguiente teorema.
+
+\begin{theorem} \label{grobner-normal}
+Sea $G$ una base de Gröbner de un ideal $I$. Las siguientes afirmaciones se cumplen:
+\begin{enumerate} [(a)]
+\item Todo polinomio $f \in K[x_1,\dots,x_n]$ tiene precísamente una forma normal con respecto a $G$. Entonces existe una función $\textrm{NF}_G : K[x_1,\dots,x_n]\rightarrow K[x_1,\dots,x_n]$ tal que manda a cada polinomio con la forma normal que le corresponde.
+\item La función $\textrm{NF}_G$ es lineal, y $\ker{(\textrm{NF}_G)} = I$
+\item Si $\widetilde{G}$ es otra base de Gröbner de $I$ bajo el mismo orden monomial, entonces $\textrm{NF}_G = \textrm{NF}_{\widetilde{G}}$
+\end{enumerate}
+\begin{proof}
+Probaremos (a) y (c) juntos. Sean $f^*$ y $\widetilde{f}$ formas normales de $f$ con respecto a $G$ y $\widetilde{G}$ respectivamente. Por ser formas normales se cumple que $(f^* - f) - (\widetilde{f} - f) = f^* - \widetilde{f} \in I$ así que:
+
+$$ \lm{f^* - \widetilde{f}} \in L(I) = L(G) = L(\widetilde{G}) $$
+
+Supongamos que $f^* \neq \widetilde{f}$. Entonces existen $g \in G$, $\widetilde{g} \in \widetilde{G}$ tales que generan, y, por ende, dividen a $\lm{f^* - \widetilde{f}}$. Pero $\lm{f^* - \widetilde{f}}$ es elemento de $\mon{f^*}$ o de $\mon{\widetilde{f}}$. Por lo tanto alguna de las dos no es forma normal, una contradicción, entonces $f^* = \widetilde{f}$ y se cumplen (a) y (c).
+
+Para la linealidad hay que observar que, por~\ref{normal form}(b), $h := \textrm{NF}_G(f + cg) - (\textrm{NF}_G(f) + c\textrm{NF}_G(g))$ es congruente con $f + cg - (f + cg) = 0$ módulo $(G)$, entonces $h \in I$. Además, $h$ está en forma normal con respecto a $G$ ya que es suma de formas normales con respecto a $G$, y la suma no puede agregar monomios que rompan la propiedad de normalidad. Si $h \neq 0$, entonces $LM(h)$ debería ser generado por(o divide a, ya que son monomios) $LM(g)$ para algún $g \in G$, pero esto contradice el hecho de que $h$ está en forma normal con respecto a $G$.
+
+Finalmente, para $f \in \ker{(\textrm{NF}_G)}$ tenemos que $f = f - \textrm{NF}_G(f) \in I$. Por otro lado, si $f \in I$, entonces $f^* := \textrm{NF}_G(f) \in I$. Si $f^* \neq 0$, nuevamente existe una $g \in G$ tal que $LM(g)$ divide a $LM(f^*)$, una contradicción. Entonces $f^* =0$
+\end{proof}
+\end{theorem}
+
+El teorema anterior nos da una forma de probar si un polinomio está dentro de un ideal de manera metódica, por lo tanto programable. En el caso particular de probar con $f = 1$, obtenemos una prueba para saber si un ideal es propio, o contiene una constante no cero. También obtenemos el siguiente corolario:
+
+\begin{corollary}
+Sea $G$ una base de Grobner de un ideal $I \in K[x_1,\dots,x_n]$. Entonces $I = (G)_{K[x_1, \dots, x_n]}$
+\end{corollary}
+
+\begin{proof}
+Por definición, $G \subseteq I$, entonces $(G) \subseteq I$. Por otro lado, si $f \in I$ tenemos que $\textrm{NF}_G(f) = 0$ por el teorema~\ref{grobner-normal}, entonces $f \in (G)$.
+\end{proof}
+
+Como vemos, las bases de Gröbner son bases del ideal, pero no necesariamente pasa lo contrario, pero podemos construír una base de Gröbner partiendo de una base del ideal, y agregando los elementos que faltan para que también sea una base de Gröbner. Para esto necesitamos una forma de obtener polinomios del ideal que tengan como monomio principal a un monomio que no se pueda generar por los monomios principales de la base del ideal. En primer lugar, para lograr esto, este nuevo polinomio no debería de tener como monomio principal a uno de los monomios principales de la base del ideal. Una forma de obtener estos polinomios es a través de la siguiente definición.
+
+\begin{definition}
+Sean $f, g \in K[x_1,\dots,x_n]$, y sea $t = \gcd\{\lm{f},\lm{g}\}$, entonces el polinomio:
+$$ \textrm{spol}(f,g) = \frac{\lt{g}}{t}*f - \frac{\lt{f}}{t}*g $$
+es llamado el \emph{s-polinomio} de $f$ y $g$.
+\end{definition}
+
+Ahora cabe preguntarnos si sacando el s-polinomio de dos polinomios de la base de un ideal podemos hacer crecer la base hasta que sea una base de Gröbner. Este hecho lo prueba el siguiente teorema, conocido como el criterio de Buchberger:
+
+\begin{theorem}
+Sea $G \subseteq K[x_1,\dots,x_n]$ un conjunto finito de polinomios distintos de cero, entonces las siguientes afirmaciones son equivalentes:
+\begin{enumerate}[(a)]
+\item $G$ es una base de Gröbner del ideal $I \subseteq K[x_1,\dots, x_n]$ generado por $G$.
+\item Para toda $g, h \in G$, 0 es una forma normal de $\textrm{spol}(g,h)$ con respecto a $G$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Claramente todos los s-polinomios de elementos de $G$ son elementos de $I$, por lo tanto, si G es una base de Gröbner, todos los s-polinomios tendrán a 0 como forma normal con respecto a $G$. Entonces (a) implica (b).
+
+Para probar que (b) implica (a) supongamos que no es así, entonces $G$ no es una base de Gröbner, por lo tanto existe $f \in I$ tal que $\lm{f}\not\in L(G)$. Sea $\mathscr{F}$ la familia de todos los conjuntos de polinomios $\{k_1,\dots,k_r\}$ tales que cumplen que:
+
+\begin{equation}\label{sum-buch}
+f = \sum_{i=1}^r k_i g_i
+\end{equation}
+
+Ahora, ordenemos los elementos de $\mathscr{F}$ de la siguiente manera:
+$$S \leq R \Leftrightarrow \max\{\lm{h_ig_i}|g_i \in S\} \leq \max\{\lm{h_ig_i}|g_i \in R\}$$
+
+Escojamos $H \in \mathscr{F}$ minimal bajo este orden. Es posible porque el orden monomial es un buen orden, y sea $H = \{h_1, \dots, h_k\}, t = \max\{\lm{h_ig_i}|i = 1\dots r\}$
+
+Gracias a (\ref{sum-buch}) sabemos que existe una $i$ para la que $\lm{f} \in \mon{h_ig_i}$, y como $\lm{f} \not\in L(G)$, esto implica que $\lm{h_ig_i} > \lm{f}$, y a su vez, $t > \lm{f}$, por lo tanto el coeficiente de $t$ en el lado derecho de la suma es cero, entonces, si definimos:
+
+$$c_i:= 
+	\begin{cases}
+      \lc{h_i}, & \text{si}\ \lm{h_ig_i} = t \\
+      0, & \text{en otro caso}
+    \end{cases}$$
+
+obtenemos que:
+
+\begin{equation}\label{zerosum-buch}
+\sum_{i=1}^r c_i \lc{g_i} = 0
+\end{equation}
+
+Podemos asumir que $c_1 \neq 0$. Sea $J = {2,\dots,r}$ el conjunto de los índices tales que $c_i \neq 0$, y sea $i \in J$. Entonces $\lm{g_i}$ divide a $t$. Si $t_i$ es el mínimo común múltiplo de $\lm{g_i}$ y $\lm{g_1}$, entonces $t_i$ también divide a $t$, por lo tanto la definición del s-polinomio la podemos reescribir para estos polinomios en particular de la siguiente manera:
+
+$$\textrm{spol}(g_i, g_1) = \frac{\lc{g_1}t_i}{\lm{g_i}}*g_i - \frac{\lc{g_i}t_i}{\lm{g_1}}*g_1$$
+
+De lo que concluímos que $\lm{\textrm{spol}(g_i,g_1)}< t_i$. Por hipótesis, tenemos que existen $h_{i,j}$ polinomios tales que:
+
+$$\textrm{spol}(g_i,g_1) = \sum_{j=1}^r h_{i_j}g_j \textrm{, y }(\forall j \in 1,\dots,r)( \lm{h_{i,j}g_j} < \lm{\textrm{spol}(g_i,g_i)}) < t_i)$$
+
+Sea $s_i = t/t_i*\textrm{spol}(g_i,g_i)$. Como
+
+$$\lm{h_i}\lm{g_i} = t = \lm{h_1}\lm{g_1}$$
+tenemos de la reescritura de la definición del s-polinomio, que:
+\begin{equation}\label{redefine-buch}
+s_i = \lc{g_1}\lm{h_i}g_i - \lc{g_i}\lm{h_1}g_1
+\end{equation}
+
+y de la hipótesis, tenemos que:
+\begin{equation}\label{hypo-buch}
+s_i = \sum_{j=1}^r \frac{t}{t_1} h_{i_j}g_j \textrm{, y }(\forall j \in 1,\dots,r)( \lm{\frac{t_i}{t}h_{i,j}g_j} < (t/t_i)t_i = t)
+\end{equation}
+
+Ahora sea $g = \sum_{i=1}^rc_i\lm{h_i}g_i$ y escribamos a $\lc{g_1}g$ como:
+
+$$\lc{g_1}g = \sum_{j=2}^rc_i\left(\lc{g_1}\lm{h_i}g_i - \lc{g_i}\lm{h_1}g_i\right) +$$ $$\left(\sum_{i=2}^rc_i\lc{g_i}+c_1\lc{g_1}\right)\lm{h_1}g_1$$
+
+Sustituyendo gracias a (\ref{zerosum-buch}), (\ref{redefine-buch}) y (\ref{hypo-buch}) tenemos que:
+
+$$g = \sum{i_2}^r\frac{c_i}{\lc{g_1}}s_i = \sum_{j_1}^r\widetilde{h_j}g_j \textrm{, y }(\forall j \in 1,\dots,r)( \lm{\widetilde{h_{j}}g_j} <  t) $$
+
+Por (\ref{sum-buch}) se sigue que:
+
+$$f = (f-g) + g = \sum_{i_1}^r\left(h_j - c_j\lm{h_j} + \widetilde{h_j}\right)g_j$$
+
+y esto sigue de la definición de $t$ y $c_j$, que $\lm{((h_j - c_j\lm{h_j})g_j)} < t$, ya que si $\lm{h_jg_j} \neq t$, entonces $c_j = 0$ y $\lm{h_jg_j} < t$, y si $\lm{h_jg_j} = t$, entonces al hacer 
+$((h_j - c_j\lm{h_j})g_j)$ se eliminará el monomio principal. Entonces:
+
+$$ \lm{(h_j - c_j\lm{h_j} + \widetilde{h_j})g_j} < t $$
+Lo que contradice la minimalidad de $t$. Esta contradicción muestra que $G$ es una base de Gröbner.
+\end{proof}
+
+Este criterio senta las bases para un algoritmo muy importante en la geometría algebraica computacional, que da una construcción de la base de Gröbner de cualquier ideal de polinomios. El cual mostramos a continuación:
+
+\begin{algo}Algoritmo de Buchberger
+
+
+\begin{algorithm}[H]
+ \KwData{Un conjunto finito $S = \{g_1, \dots, g_r\} \subseteq K[x_1,\dots,x_n]$}
+ \KwResult{Una base de Gröbner del ideal generado por $S$, con respecto a algún orden monomial indicado}
+ $G$ := $S\setminus\{0\}$; $s^*$ := 0\;
+ \Do{$s^* \neq 0$}{
+ \ForEach{$g, h \in G$}{
+ 	$s^*$ := $\textrm{spol}(g,h)$\;
+    \If{$s^* \neq 0$}{
+    $G$ := $G \cup \{s^*\}$\;
+    Salir del ciclo\;
+    }
+ }
+ }
+ \Return $G$\;
+\end{algorithm}
+\end{algo}
+
+Por el teorema de las bases de Hilbert el algoritmo termina, ya que cada que se agrega un nuevo polinomio, $L(G)$ crece estrictamente.
+
+Este algoritmo es muy importante para diversos programas de cómputo enfocados a la geometría algebraica, tales como CoCoA, Macaulay 2, Magma, o Singular. En el transcurso del desarrollo de la tesis nos enfocamos en Macaulay 2. Podemos calcular la base de Gröbner de un ideal en este programa de la siguiente manera:
+
+\begin{example} Calculamos la base de Gröbner del ideal correspondiente a la gráfica de la función $f:\mathbb{A}_k^1 \rightarrow \mathbb{A}_k^3 $ definida por $f(t) = (t^3,t^2,t)$, usando el orden lexicográfico.
+\begin{lstlisting}
+i1 : KK = QQ
+
+o1 = QQ
+
+o1 : Ring
+
+i2 : R = KK[x,y,z]
+
+o2 = R
+
+o2 : PolynomialRing
+
+i3 : S=KK[t]
+
+o3 = S
+
+o3 : PolynomialRing
+
+i4 : SxR = KK[t,x,y,z,MonomialOrder=>Lex]
+
+o4 = SxR
+
+o4 : PolynomialRing
+
+i5 : gamma = ideal(x-t^3,y-t^2, z-t)
+
+               3         2
+o5 = ideal (- t  + x, - t  + y, - t + z)
+
+o5 : Ideal of SxR
+
+i6 : gens gb gamma
+
+o6 = | y-z2 x-z3 t-z |
+
+               1         3
+o6 : Matrix SxR  <--- SxR
+\end{lstlisting}
+Gracias a usar la base de Gröbner con este orden dado, pudimos obtener una base en la cual tenemos parametrizado tanto a x como a y en términos de $z$, y por tanto, podemos observar que el kernel de la función es exactamente lo generado por $y - z^2, x - z^3$.
+\end{example}

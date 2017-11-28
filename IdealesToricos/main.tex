@@ -1,0 +1,53 @@
+\chapter{Bases de Gröbner en ideales tóricos simpliciales}
+
+Ya hemos visto la gran utilidad que representa obtener la base de Gröbner de nuestros ideales. Sin embargo, los métodos para obtenerla, aunque sabemos que terminan, no sabemos en cuánto tiempo. En un intento por simplificar el problema, tratamos de acotar el máximo grado de los polinomios que obtendremos en nuestra base de Gröbner(mínima). Sin embargo, no es fácil.
+
+Una forma de estudiar esto es a través de un invariante que sea más fácil de usar, como la regularidad de Castelnuovo-Mumford. Este invariante se puede definir como el máximo de todas las restas entre el grado menos $i$ de cualquier i-ésimo syzygy minimal(tomando a los generadores como 0-syzygy).
+
+En las coordenadas genéricas y con respecto al orden lexicográfico inverso, el grado máximo en una base de Gröbner minimal de I está acotado por reg(I). Desafortunadamente, eso no es cierto para coordenadas arbitrarias (véase ejemplo). Por otra parte, una famosa conjetura por Eisenbud y Goto afirma que $reg(I) \leq deg(R/I) - codim(R/I) + 1$, tomando a $I$ como un ideal primo conteniendo una forma no lineal. Aquí, $deg(R/I)$ y $codim(R/I)$ denotan la multiplicidad y la codimensión de $R/I$, respectivamente. No obstante, en las coordenadas genéricas, la cota de Eisenbud-Goto: $deg{R/I} - codim{R/1} + 1$ es una cota esperada para el máximo grado en una base de Gröbner minimal de $I$ con respecto al orden lexicográfico inverso de un ideal primo que no contiene una forma lineal. Podemos confiar que se siga esperando esto para algunas otras coordenadas.
+
+En este trabajo estamos interesados en la estimación de la complejidad de grados de bases de Gröbner de ideales tóricos simpliciales. Los ideales tóricos se portan bien, particularmente porque son ideales primos, y en las coordenadas naturales, son generados por binomios. Con respecto a encontrar una base de Gröbner mínima de algún ideal, es por tanto natural intentar mantener las coordenadas originales, asi que estos elementos en una base de Gröbner se pueden tomar como binomios - los cuales son fáciles de calcular y restaurar - . Por otro lado, en {referencia}, los últimos dos autores muestran que para una gran clase de ideales tóricos simpliciales I, la regularidad de Castelnuovo-Mumford reg(I) está acotado por la cota de Eisenbud-Goto $deg(R/I) - codim(R/I) + 1$. Por este fenómeno creemos que la siguiente conjetura se cumple.
+
+\begin{theorem}
+Asumamos que $I$ es el ideal tórico asociado al semigrupo afín homogéneo simplicial $S$ sobre un campo arbitrario $K$. El máximo grado en una base de Gröbner minimal de $I$ en las coordenadas naturales y con respecto a el orden lexicográfico inverso, está acotado superiormente por $degK[S] - codimK[S] + 1$
+
+\end{theorem} 
+
+Note que esto no es cierto para un orden de términos arbitrario. Para el resto del trabajo, si no decimos lo contrario, consideraremos las coordenadas naturales y el orden lexicográfico inverso. Aunque todavía no somos capaces de resolver el problema de arriba, podemos establecer la cota superior $2(degK[S] - codimK[S])$. Para lograr esto, primero establecemos una cota superior en términos del número de reducción $r(S)$ de $K[S]$. Entonces, combinando con una cota de (Referencia) en $r(S)$, obtenemos el resultado principal, (Teorema 1.1). También podemos proveer otra cota en términos de la codimensión $c = codim K[S]$ y el grado total $\alpha$ de los monomios que definen a $S$. En muchos de los ejemplos de cotas en los teoremas 1.1 y 1.4 son incluso más pequeños que la cota de Eisenbud-Goto.
+
+En la Sección 2 resolveremos la conjetura de arriba para ciertas clases de ideales tóricos simpliciales. Los ideales de la primera clase vienen de una simple observación de que el máximo grado en su mínima base de Gröbner está acotado por el número de regularidad de Castelnuovo-Mumford si los anillos correspondientes $K[S]$ son anillos Cohen-Macaulay generalizados. Los ideales del segundo tipo son caracterizados por ciertas propiedades del conjunto de parámetros $\mathcal{A}$(proposiciones 2.4 y 2.6). En esta situación, usando el (teorema 1.4) podemos restringirnos a pocos casos excepcionales cuando al codimensión es muy grande. Entonces, la técnica principal es refinar las cotas en base al número de reducción o calcular su valor exacto. Así que alguna puede aplicar (teorema 1.1). En particular, mostraremos que la conjetura se sostiene para todos los ideales tóricos simpliciales en (referencia), para los cuales la conjetura de Eisenbud-Goto se sabe que es cierta.
+
+\section{Cotas}
+
+Recordemos que un semigrupo afín es uno que se puede escribir como semigrupo de $\mathbb{N}^d$, 
+Sea $S \subseteq \mathbb{N}^{d}$ un semigrupo homogéneo simplicial afín, generado por un conjunto de elementos de la siguiente forma:
+\begin{multline*}
+$$  \mathcal{A} = \{\textbf{e}_1, \dots, \textbf{e}_d, \textbf{a}_1,\dots,\textbf{a}_c\} \subseteq M_{\alpha, d} = \{(x_1,\dots, x_d)\in \mathbb{N}^d \mid x_1 + \cdots + x_d\}$$
+\end{multline*}
+
+donde $ c \geq 2 $, $ \alpha \geq 2 $ son números naturales
+
+\section{Ideales tóricos simpliciales}
+
+Sea $S \subseteq \mathbb{N}^d$ semigrupo afín homogéneo simplicial generado por:
+$$\mathcal{A}=\{\textbf{e}_1,\dots,\textbf{e}_d, \textbf{a}_1, \dots, \textbf{a}_c\} \subset \mathcal{M}_{\alpha, d} = \{(a_1, \dots, a_d) \in \mathbb{N}^d | \sum_{i=1}^d a_i = \alpha\}$$
+
+donde $x \geq 2$, $\alpha \geq 2$ son súmeros naturales, y $\mathbf{e}_1 = (\alpha, 0, \dots, 0), \dots, {e}_d = (0,\dots, 0, \alpha)$. Más aún, si $\mathbf{a}_i = (a_{i1}, a_{id})$, podemos asumir que, para $i \in \{1,\dots,c\}, j \in \{1,\dots, d\}$, los enteros $a_{ij}$ son primos relativos. 
+
+También veamos que $K[S] \equiv K[t_1^\alpha, \dots, t_d^\alpha, \mathbf{t}^{\mathbf{a}_1}, \dots, \mathbf{t}^{\mathbf{a}_c}] \subseteq K[\textbf{t}]$, y, de hecho, $\{t_1^{\alpha},\dots,t_d^{\alpha}\}$ es un conjunto maximal algebraicamente independiente de este anillo. Por lo tanto, $\dim K[S] = d$ y $\textrm{codim }K[S] = c$, si vemos a $K[S]$ como cociente de una normalización de Noether.
+
+\begin{definition}
+Sea $I_{\mathcal{A}}$ el kernel del homomorfismo:
+
+$$K[\mathbf{x}, \mathbf{y}] := K[x_1, \dots, x_c, y_1, \dots, y_d] \rightarrow K[t_1^\alpha, \dots, t_d^\alpha, \mathbf{t}^{\mathbf{a}_1}, \dots, \mathbf{t}^{\mathbf{a}_c}]$$
+
+$$x_i \rightarrow \textbf{t}^{\textbf{a}_i}; y_i \rightarrow t_j^\alpha; i \in \{1,\dots, c\}; j \in \{1,\dots, d\}$$
+
+Entonces, decimos que $I_{\mathcal{A}}$ es un \emph{ideal tórico simplicial definido por} $\mathcal{A}$ (ó por $S$). 
+\end{definition}
+
+Consideraremos la graduación estándar en $K[\textbf{x}, \textbf{y}]$ y $K[S]$. Es decir, $\deg(x_i) = \deg(y_i) = 1$ y si $\mathbf{b} \in S$, entonces $\deg(\mathbf{b}) = (\sum_{i=1}^d b_i)/\alpha$.
+
+Gracias a (Referencia) sabemos que $I_{\mathcal{A}}$ tiene una base de Gröbner minimal que consiste de binomios. Nos interesa conoces su grado máximo.
+
+Sea $A = A_0 \bigoplus A_1 \bigoplus \cdots$, donde $A_0 = K$

@@ -258,9 +258,9 @@ supported!}
 % Add appendices
 \RequirePackage[title,titletoc]{appendix}
 
-\renewcommand{\contentsname}{Table of contents}
-\renewcommand{\listfigurename}{List of figures}
-\renewcommand{\listtablename}{List of tables}
+\renewcommand{\contentsname}{Tabla de contenido}
+\renewcommand{\listfigurename}{Lista de imágenes}
+\renewcommand{\listtablename}{Lista de tablas}
 
 % Hides Contents appearing from TOC, but adds it to bookmarks
 \let\temptableofcontents\tableofcontents
@@ -850,7 +850,7 @@ wish to left align your text}
 \newcommand{\supervisor}[1]{\renewcommand{\@supervisor}{#1}\PHD@supervisortrue}
 
 % Supervisor Title (Supervisor - Default, can be changed)
-\newcommand{\@supervisorrole}{Supervisor: }
+\newcommand{\@supervisorrole}{Asesor: }
 \newcommand{\supervisorrole}[1]{\renewcommand{\@supervisorrole}{#1}}
 
 % Supervisor width to align
@@ -863,7 +863,7 @@ wish to left align your text}
 \newcommand{\advisor}[1]{\renewcommand{\@advisor}{#1}\PHD@advisortrue}
 
 % Advisor Title (Advisor - Default, can be changed)
-\newcommand{\@advisorrole}{Advisor: }
+\newcommand{\@advisorrole}{Asesor: }
 \newcommand{\advisorrole}[1]{\renewcommand{\@advisorrole}{#1}}
 
 % Advisor width to align
@@ -1011,7 +1011,7 @@ wish to left align your text}
 \newenvironment{acknowledgements}{
 \cleardoublepage
 \setsinglecolumn
-\chapter*{\centering \Large Acknowledgements}
+\chapter*{\centering \Large Agradecimientos}
 \thispagestyle{empty}
 }
 
