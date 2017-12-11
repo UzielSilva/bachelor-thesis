@@ -1,0 +1,116 @@
+\section{Sucesiones regulares y complejos de Koszul}
+
+Una definición muy importante para poder trabajar, es la de \emph{sucesión regular}, ya que extiende la noción de un elemento que no es divisor de cero. A lo largo de esta sección a estos elementos les llamaremos \emph{regulares}
+
+\begin{definition}
+
+Sea $R$ anillo y $M$ $R$-módulo. Una sucesión de elementos $x_1,\dots,x_n \in R$ es una \emph{sucesión regular} en $M$ (o una $M$-sucesión) sí:
+
+\begin{enumerate}[i)]
+\item $(x_1,\dots,x_n)M \neq M$
+\item $(\forall i \in \{1,\dots, n\})(x_i \textrm{ es regular en } M/(x_1,\dots, x_{i-1}))$
+\end{enumerate}
+
+\end{definition}
+
+Estudiaremos esta noción con una herramienta homológica llamada \emph{complejo de Koszul}. Su definición es algo complicada, por lo que primero trataremos de entender los casos más simples para después generalizar.
+
+Antes de continuar, necesitaremos un par de definiciones.
+
+\begin{definition}
+
+Un \emph{complejo de $R$-módulos} es una sucesión de módulos $F^i$ y funciones $f^i: F^{i-1}\rightarrow F^i$ tal que, para toda $i$, $f^{i+1} \circ f^i = 0$. En ocasiones a estas funciones se les denomina como diferenciales.
+
+La \emph{homología} $H^i$ de este complejo en $F^i$ es el módulo:
+
+$$ \ker(F^i\rightarrow F^{i+1})/\textrm{im}(F^{i-1}\rightarrow F^{i})$$
+
+\end{definition}
+
+Es de notar que la enumeración y el indexado en la literatura se manejan de derecha a izquierda y con subíndices en lugar de superíndices, pero por conveniencia nosotros usaremos esta notación, que se usa más frecuentemente para hablar de los grupos de cohomología.
+
+Para hablar de la homología de los complejos de Koszul, la siguiente definición nos será de mucha utilidad.
+
+\begin{definition}
+
+Si $M$ es un submódulo de un $S$-módulo libre, y $J$ es un ideal de $S$, podemos definir a los siguientes submódulos:
+
+$$(M:J) := {f \in F|fJ\subset M}\subset F$$
+
+$$(M:J^\infty) := {f \in F|fJ\subset M}\subset F$$
+
+Al submódulo $(M:J^\infty)$ se le conoce como la \emph{saturación de $M$ con respecto a $J$}. Podemos abusar de la notación y escribir $(x:y)$ en lugar de $((x):(y))$.
+
+\end{definition}
+
+\subsection{Complejos de Koszul de longitud 1 y 2}
+
+Podemos decidir si un elemento $x \in R$ es regular a través de la homología del complejo
+
+$$ K(x):0\rightarrow R\xrightarrow{x} R $$
+
+la cual resulta ser $(0:x)$. Esta sencilla observación es la base para nuestro estudio de las sucesiones regulares a través de la homología.
+
+Dado un segundo elemento $y \in R$, la multiplicación por $y$ define una función entre complejos $K(x)\rightarrow K(x)$, es decir, un diagrama conmutativo
+
+\[
+\begin{tikzcd}
+K(x):0 \arrow[r,""] & R \arrow[r,"x"] \arrow[d,"y"] & R \arrow[d,"y"]\\
+K(x):0 \arrow[r,""] & R \arrow[r,"x"] & R
+\end{tikzcd}
+\]
+
+Podemos usar la conmutatividad del cuadrado en el diagrama para construir un complejo más grande, el cual lo representamos esquemáticamente de la siguiente manera
+
+\[
+K(x,y):
+\begin{tikzcd}
+0\arrow[r,""] & R \arrow[r,"x"] \arrow[rd,"y"] & R \arrow[d,draw=none,"\bigoplus" description] \arrow[r,""] \arrow[rd,"y"] & 0\\
+&0 \arrow[r,""] & R \arrow[r,"-x"] & R \arrow[r] & 0
+\end{tikzcd} \label{complex2schema} \tag{$\star$}
+\]
+
+o en una notación más usual como 
+
+\[
+K(x,y):
+\begin{tikzcd}[ampersand replacement=\&]
+0 \ar[r] \& R \ar{r}{
+\left( \begin{smallmatrix} y \\ x \end{smallmatrix} \right)
+} \& R \oplus R \ar{r}{
+\left( \begin{smallmatrix} -x & y \end{smallmatrix} \right)
+} \& R
+\end{tikzcd} \label{complex2common} \tag{$\star\star$}
+\]
+
+En la literatura se suele definir de otra forma al complejo de Koszul, usualmente se representa con los signos de la siguiente manera
+
+\[
+K(x,y):
+\begin{tikzcd}[ampersand replacement=\&]
+0 \ar[r] \& R \ar{r}{
+\left( \begin{smallmatrix} y \\ -x \end{smallmatrix} \right)
+} \& R \oplus R \ar{r}{
+\left( \begin{smallmatrix} x & y \end{smallmatrix} \right)
+} \& R
+\end{tikzcd}
+\]
+
+Estas dos posibilidades de representarlo, sin embargo, son isomorfas como complejos, por lo que no representa un problema. Nosotros elegiremos la primera forma por conveniencia para cálculos que analizaremos más adelante.
+
+TO-DO: definir anulador
+
+Podemos ver de la definición que $H^0(K(x)) = (0:x)$, el anulador de $x$, y $H^0(K(x,y))$ es $(0, (x,y))$, así que si $x$ es regular entonces $H^0(K(x,y)) = 0$.
+
+Ahora analizemos qué es $H^1(K(x,y))$. Primero analicemos el kernel de la función de la derecha. Un elemento $(a,b) \in R\oplus R$ está en el kernel sí y sólo si $-xa+yb = 0$, por lo que $b \in (x:y)$. De igual manera, si $b \in (x:y)$, entonces hay un elemento $a$ tal que $-xa + yb = 0$, así que $(a,b)$ estará en el kernel. Si asumimos que $x$ es regular, entonces $a$ está únicamente determinada por $b$, y la asociación $b\rightarrow a$ es un homomorfismo de módulos, así que el kernel es isomorfo a $(x:y)$.
+Por otro lado, un elemento está en la imagen de la función de la derecha sí y sólo si es de la forma $(cy, cx)$, así que los elementos de $(x:y)$ que corresponden a los elementos de la imagen son los elementos de $(x)$. Así, si $x$ es regular, entonces
+
+$$H^1(K(x,y))\cong(x:y)/(x)$$
+
+En particular, si $x$ es regular entonces $H^1(K(x,y)) = 0$ sí y sólo si la sucesión $x, y$ satisface la condición (II) en la definición de sucesión regular.
+
+Aún podemos extraer más información si dirigimos nuestra atención al diagrama (\ref{complex2schema}): La fila de abajo es un subcomplejo(es decir, sus diferenciales no se salen de él) isomorfo a $K(x)$, mientras que la fila de arriba, también isomorfa a $K(x)$, es el cociente de $K(x, y)$ por la fila de abajo. En efecto, el $i-1$-ésimo termino del subcomplejo $K(x)$ está incluído en el $i$-ésimo térmido de $K(x, y)$, el cual proyecta hacia el $i$-ésimo término del cociente $K(x)$, así que la sucesión exacta larga de homologías que viene de esta sucesión exacta corta de complejos tiene la forma:
+
+$$\cdots \rightarrow H^0(K(x)) \xrightarrow{\delta} H^0(K(x)) \rightarrow H^1(K(x, y)) \rightarrow H^1(K(x)) \rightarrow \cdots$$
+
+donde la función $\delta$ es el "homomorfismo que conecta". Analicemos más detenidamente este diagrama, 
