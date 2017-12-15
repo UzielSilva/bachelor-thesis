@@ -39,9 +39,9 @@ Para hablar de la homología de los complejos de Koszul, la siguiente definició
 
 Si $M$ es un submódulo de un $S$-módulo libre, y $J$ es un ideal de $S$, podemos definir a los siguientes submódulos:
 
-$$(M:J) := {f \in F|fJ\subset M}\subset F$$
+$$(M:J) := \{f \in F|fJ\subset M\}\subset F$$
 
-$$(M:J^\infty) := {f \in F|fJ\subset M}\subset F$$
+$$(M:J^\infty) := \bigcup_{d=1}^\infty(M:J^d)\subset F$$
 
 Al submódulo $(M:J^\infty)$ se le conoce como la \emph{saturación de $M$ con respecto a $J$}. Podemos abusar de la notación y escribir $(x:y)$ en lugar de $((x):(y))$.
 
@@ -148,10 +148,10 @@ En particular, si $x$ es regular entonces $H^1(K(x,y)) = 0$ sí y sólo si la su
 
 Aún podemos extraer más información si dirigimos nuestra atención al diagrama (\ref{complex2schema}): La fila de abajo es un subcomplejo(es decir, sus diferenciales no se salen de él) isomorfo a $K(x)$, mientras que la fila de arriba, también isomorfa a $K(x)$, es el cociente de $K(x, y)$ por la fila de abajo. En efecto, el $i-1$-ésimo termino del subcomplejo $K(x)$ está incluído en el $i$-ésimo térmido de $K(x, y)$, el cual proyecta hacia el $i$-ésimo término del cociente $K(x)$, por lo que tenemos la siguiente sucesión exacta corta:
 
-$$ 0 \rightarrow K(x) \xrightarrow{i^\bullet} K(x,y) \xrightarrow{p^\bullet} K(x) \rightarrow 0 $$
+$$ 0 \rightarrow K_1(x) \xrightarrow{i^\bullet} K(x,y) \xrightarrow{p^\bullet} K_2(x) \rightarrow 0 $$
 
 Además, un famoso lema llamado el \emph{"lema de la serpiente"} establece que es posible obtener una sucesión exacta larga de homologías a partir de una sucesión exacta corta de complejos, redefiniendo a los morfismos $f^i:C^i\rightarrow D^i$ como $H(f^i):H^i(C^{\bullet})\rightarrow H^i(D^{\bullet}), H(d^i)(x + B^i(C^\bullet)) = f^i(x) + B^i(D^\bullet)$ (el lema también garantiza que estos nuevos morfismos están bien definidos), así que esta sucesión exacta larga obtenida tiene la forma:
 
-$$\cdots \rightarrow H^0(K(x)) \xrightarrow{\delta} H^0(K(x)) \rightarrow H^1(K(x, y)) \rightarrow H^1(K(x)) \rightarrow \cdots$$
+$$\cdots \rightarrow H^0(K_2(x)) \xrightarrow{\delta} H^0(K_1(x)) \rightarrow H^1(K(x, y)) \rightarrow H^1(K_2(x)) \rightarrow \cdots$$
 
-donde la función $\delta$ es el "homomorfismo que conecta", definido como $\delta: \ker{} $. Analicemos más detenidamente este diagrama, 
+donde la función $\delta$ es el "homomorfismo que conecta", definido como $\delta: H^0(K_2(x)) \rightarrow H^0(K_1(x)), \delta(z + (B^(K))) =  $.
