@@ -154,20 +154,30 @@ Además, un famoso lema llamado el \emph{"lema de la serpiente"} establece que e
 
 $$\cdots \rightarrow H^0(K_2(x)) \xrightarrow{\delta} H^0(K_1(x)) \rightarrow H^1(K(x, y)) \rightarrow H^1(K_2(x)) \rightarrow \cdots$$
 
-donde la función $\delta$ es el "homomorfismo que conecta". Para explicar este homomorfismo nos apoyaremos en el siguiente diagrama:
+donde la función $\delta$ es el "homomorfismo que conecta". Para explicar este homomorfismo nos apoyaremos en el siguiente diagrama, cuyas columnas representan a $K_1(x), K(x, y)$ y $K_2(x)$, respectivamente:
 
 \[
 \begin{tikzcd}[ampersand replacement=\&]
-\& 0 \ar{d} \& 0 \ar{d} \\
-0 \ar{r}{i^0} \ar{d} \& R \ar{r}{p^0} \ar{d}{
+\&\& 0 \ar{d} \& 0 \ar{d} \\
+\&0 \ar{r} \ar{d} \& R \ar{r}{p^0} \ar{d}{
 \left( \begin{smallmatrix} y \\ x \end{smallmatrix} \right)
-} \& R \ar{d}{x} \\
-R \ar{r}{i^1} \ar{d}{-x} \& R \oplus R \ar{r}{p^1} \ar{d}{
+} \& R \ar{d}{x} \ar{r} \& 0 \\
+0 \ar{r} \&R \ar{r}{i^1} \ar{d}{-x} \& R \oplus R \ar{r}{p^1} \ar{d}{
 \left( \begin{smallmatrix} -x & y \end{smallmatrix} \right)
-} \& R \ar{d} \\
-R \ar{r}{i^2} \ar{d} \& R \ar{r}{p^2} \ar{d} \& R \\
-0 \& 0  
+} \& R \ar{d} \ar{r} \& 0 \\
+0 \ar{r} \&R \ar{r}{i^2} \ar{d} \& R \ar{r}{p^2} \ar{d} \& R \ar{r} \ar{d} \& 0 \\
+\& 0 \& 0 \& 0 
 \end{tikzcd}
 \]
 
-Donde $i^1(z) = \left(\begin{smallmatrix} z \\ 0 \end{smallmatrix} \right)$, $p_1$ es la proyección de la segunda coordenada, $i^0$ es la función trivial y $p^0, i^2, p^2$ son $id_{R}$. 
+Donde $i^1(z) = \left(\begin{smallmatrix} z \\ 0 \end{smallmatrix} \right)$, $p_1$ es la proyección de la segunda coordenada, y $p^0, i^2, p^2$ son $id_{R}$. Ahora, sea $z \in H^0(K_2(x))$. Para obtener su imagen a través de $\delta$, debemos tomar su preimagen a través de $H(p^0)$, que es el mismo $z$, y luego aplicar a un representante de la clase el diferencial. En este caso la imagen es trivial y sólo tenemos un representante, así que obtendremos $\left(\begin{smallmatrix} yz \\ xz \end{smallmatrix}\right)$. Pero recordemos que $z \in Z^0(K_2(x))$, así que $z \in (0:x)$ y $\left(\begin{smallmatrix} yz \\ xz \end{smallmatrix}\right)=\left(\begin{smallmatrix} yz \\ 0 \end{smallmatrix}\right)$, que pertenece al kernel de $p^1$, así que, como $H(i^1)$ y  $H(p^1)$ forman una sucesión exacta, tomemos la preimagen de $\left(\begin{smallmatrix} yz \\ 0 \end{smallmatrix}\right) + B^1(K(x,y))$ a través de $H(i^0)$, que es $yz$, siendo finalmente la imagen de $\delta$, por lo tanto, $\delta(z) = yz$.
+
+Ahora supongamos solamente que $H^1(K(x, y)) = 0$. Se sigue de la sucesión exacta de homologías que:
+
+$$H^0(K(x))/yH^0(K(x)) = 0$$
+
+En general, esto no nos dice mucho, pero si suponemos además que $R$ es un anillo noetheriano local y $y$ está en el ideal maximal, entonces, por el lema de Nakayama(falta hablar de esto) tenemos que $H^0(K(x)) = 0$. Por ende, $x$ es regular, y $x, y$ forman una sucesión regular por lo visto anteriormente. Enunciaremos lo discutido anteriormente en el siguiente teorema.
+
+\begin{theorem}
+Si $R$ es un anillo noetheriano local, y $x, y$ están en el ideal maximal, entonces $x, y$ forman una sucesión regular sí y sólo si $H^1(K(x, y)) = 0$.
+\end{theorem}
