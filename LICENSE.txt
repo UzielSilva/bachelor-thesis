@@ -1,3 +1,4 @@
+Copyright (c) 2017 Uziel Silva (https://github.com/UzielSilva)
 
 Attribution 4.0 International
 
