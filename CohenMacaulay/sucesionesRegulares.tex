@@ -150,8 +150,24 @@ Aún podemos extraer más información si dirigimos nuestra atención al diagram
 
 $$ 0 \rightarrow K_1(x) \xrightarrow{i^\bullet} K(x,y) \xrightarrow{p^\bullet} K_2(x) \rightarrow 0 $$
 
-Además, un famoso lema llamado el \emph{"lema de la serpiente"} establece que es posible obtener una sucesión exacta larga de homologías a partir de una sucesión exacta corta de complejos, redefiniendo a los morfismos $f^i:C^i\rightarrow D^i$ como $H(f^i):H^i(C^{\bullet})\rightarrow H^i(D^{\bullet}), H(d^i)(x + B^i(C^\bullet)) = f^i(x) + B^i(D^\bullet)$ (el lema también garantiza que estos nuevos morfismos están bien definidos), así que esta sucesión exacta larga obtenida tiene la forma:
+Además, un famoso lema llamado el \emph{"lema de la serpiente"} establece que es posible obtener una sucesión exacta larga de homologías a partir de una sucesión exacta corta de complejos, redefiniendo a los morfismos $f^i:C^i\rightarrow D^i$ como $H(f^i):H^i(C^{\bullet})\rightarrow H^i(D^{\bullet}), H(f^i)(x + B^i(C^\bullet)) = f^i(x) + B^i(D^\bullet)$ (el lema también garantiza que estos nuevos morfismos están bien definidos), así que esta sucesión exacta larga obtenida tiene la forma:
 
 $$\cdots \rightarrow H^0(K_2(x)) \xrightarrow{\delta} H^0(K_1(x)) \rightarrow H^1(K(x, y)) \rightarrow H^1(K_2(x)) \rightarrow \cdots$$
 
-donde la función $\delta$ es el "homomorfismo que conecta", definido como $\delta: H^0(K_2(x)) \rightarrow H^0(K_1(x)), \delta(z + (B^(K))) =  $.
+donde la función $\delta$ es el "homomorfismo que conecta". Para explicar este homomorfismo nos apoyaremos en el siguiente diagrama:
+
+\[
+\begin{tikzcd}[ampersand replacement=\&]
+\& 0 \ar{d} \& 0 \ar{d} \\
+0 \ar{r}{i^0} \ar{d} \& R \ar{r}{p^0} \ar{d}{
+\left( \begin{smallmatrix} y \\ x \end{smallmatrix} \right)
+} \& R \ar{d}{x} \\
+R \ar{r}{i^1} \ar{d}{-x} \& R \oplus R \ar{r}{p^1} \ar{d}{
+\left( \begin{smallmatrix} -x & y \end{smallmatrix} \right)
+} \& R \ar{d} \\
+R \ar{r}{i^2} \ar{d} \& R \ar{r}{p^2} \ar{d} \& R \\
+0 \& 0  
+\end{tikzcd}
+\]
+
+Donde $i^1(z) = \left(\begin{smallmatrix} z \\ 0 \end{smallmatrix} \right)$, $p_1$ es la proyección de la segunda coordenada, $i^0$ es la función trivial y $p^0, i^2, p^2$ son $id_{R}$. 
