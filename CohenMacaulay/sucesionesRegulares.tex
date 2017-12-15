@@ -19,15 +19,19 @@ Antes de continuar, necesitaremos un par de definiciones.
 
 \begin{definition}
 
-Un \emph{complejo de $R$-módulos} es una sucesión de módulos $F^i$ y funciones $f^i: F^{i-1}\rightarrow F^i$ tal que, para toda $i$, $f^{i+1} \circ f^i = 0$. En ocasiones a estas funciones se les denomina como diferenciales.
+Un \emph{complejo de cadenas de $R$-módulos} (o simplemente \emph{complejo}) $C^{\bullet}$ es una sucesión de módulos $\{C^i\}_{i \in \mathbb{Z}}$ y funciones $\{d^i: C^{i-1}\rightarrow C^i\}_{i \in \mathbb{Z}}$ tal que, para toda $i \in \mathbb{Z}$, $d^{i+1} \circ d^i = 0$. En ocasiones a estas funciones se les denomina como diferenciales.
 
-La \emph{homología} $H^i$ de este complejo en $F^i$ es el módulo:
+Nos referimos al kernel de $d^n$ como $Z^n(C^\bullet)$, y a su imagen como $B^n(C^\bullet)$.
 
-$$ \ker(F^i\rightarrow F^{i+1})/\textrm{im}(F^{i-1}\rightarrow F^{i})$$
+La \emph{homología} $H^i$ de este complejo en $C^i$ es el módulo:
+
+$$ \ker(d^{i+1})/\textrm{im}(d^{i})$$
 
 \end{definition}
 
-Es de notar que la enumeración y el indexado en la literatura se manejan de derecha a izquierda y con subíndices en lugar de superíndices, pero por conveniencia nosotros usaremos esta notación, que se usa más frecuentemente para hablar de los grupos de cohomología.
+Un complejo, en efecto, puede usar índices finitos, si lo completamos con módulos cero y morfismos cero.
+
+Es de notar que la enumeración y el indexado en la literatura se manejan de derecha a izquierda y con subíndices en lugar de superíndices, pero por conveniencia nosotros usaremos esta notación, que se usa más frecuentemente para hablar de la cohomología.
 
 Para hablar de la homología de los complejos de Koszul, la siguiente definición nos será de mucha utilidad.
 
@@ -40,6 +44,41 @@ $$(M:J) := {f \in F|fJ\subset M}\subset F$$
 $$(M:J^\infty) := {f \in F|fJ\subset M}\subset F$$
 
 Al submódulo $(M:J^\infty)$ se le conoce como la \emph{saturación de $M$ con respecto a $J$}. Podemos abusar de la notación y escribir $(x:y)$ en lugar de $((x):(y))$.
+
+\end{definition}
+
+Nótese que gracias a esta definición es muy sencillo representar a los divisores de cero de un ideal $A$, que de hecho son un $R$-módulo. Basta con representarlos como $(0:A)$.
+
+También, cuando estudiamos relaciones entre complejos es inevitable encontrarnos en algún momento con diagramas conmutativos, lo que nos lleva a las siguientes definiciones.
+
+\begin{definition}
+
+Un \emph{morfismo de cadenas} entre dos complejos $F^{\bullet}$ y $G^{\bullet}$ es una sucesión de homomorfismos de módulos $\{f^{\bullet} = {f^i:F^i \rightarrow G^i}\}_{i \in \mathbb{Z}}$ tal que, para cada $i \in \mathbb{Z}$, el siguiente diagrama conmuta:
+
+\[
+\begin{tikzcd}
+F^{i-1} \arrow[d,"d^i"] \arrow[r,"f^{i-1}"] & G^{i-1} \arrow[d,"d^i"]\\
+F^i \arrow[r,"f^i"] & G^i
+\end{tikzcd}
+\]
+
+Utilizamos el mismo símbolo $d^i$ para referirnos a los diferenciales correspondientes de cada complejo.
+
+\end{definition}
+
+\begin{definition}
+
+Una \emph{sucesión exacta de complejos}
+
+$$ \cdots \rightarrow C^{\bullet}_{i-1} \xrightarrow{f^{\bullet}_i} C^{\bullet}_i \xrightarrow{f^{\bullet}_{i+1}} C^{\bullet}_{i+1} \rightarrow \cdots$$
+
+Es una sucesión de morfismos de cadenas $\{f^{\bullet}_i:C^{\bullet}_{i-1}\rightarrow C^{\bullet}_i\}_{i \in \mathbb{Z}}$ tales que, para cada $j\in \mathbb{Z}$, la sucesión de homomorfismos de módulos
+
+$$ \cdots \rightarrow C^{j}_{i-1} \xrightarrow{f^j_i} C^{j}_i \xrightarrow{f^j_{i+1}} C^{j}_{i+1} \rightarrow \cdots$$
+
+es exacta. También se le denomina \emph{sucesión exacta corta} a una sucesión exacta que consta de sólamente dos morfismos $f^\bullet:C\rightarrow D$, $g^\bullet:D\rightarrow E$ consecutivos distintos de cero, representándose de la siguente manera:
+
+$$ 0 \rightarrow C^{\bullet} \xrightarrow{f^{\bullet}} D^{\bullet} \xrightarrow{g^{\bullet}} E^{\bullet} \rightarrow 0$$
 
 \end{definition}
 
@@ -98,8 +137,6 @@ K(x,y):
 
 Estas dos posibilidades de representarlo, sin embargo, son isomorfas como complejos, por lo que no representa un problema. Nosotros elegiremos la primera forma por conveniencia para cálculos que analizaremos más adelante.
 
-TO-DO: definir anulador
-
 Podemos ver de la definición que $H^0(K(x)) = (0:x)$, el anulador de $x$, y $H^0(K(x,y))$ es $(0, (x,y))$, así que si $x$ es regular entonces $H^0(K(x,y)) = 0$.
 
 Ahora analizemos qué es $H^1(K(x,y))$. Primero analicemos el kernel de la función de la derecha. Un elemento $(a,b) \in R\oplus R$ está en el kernel sí y sólo si $-xa+yb = 0$, por lo que $b \in (x:y)$. De igual manera, si $b \in (x:y)$, entonces hay un elemento $a$ tal que $-xa + yb = 0$, así que $(a,b)$ estará en el kernel. Si asumimos que $x$ es regular, entonces $a$ está únicamente determinada por $b$, y la asociación $b\rightarrow a$ es un homomorfismo de módulos, así que el kernel es isomorfo a $(x:y)$.
@@ -109,8 +146,12 @@ $$H^1(K(x,y))\cong(x:y)/(x)$$
 
 En particular, si $x$ es regular entonces $H^1(K(x,y)) = 0$ sí y sólo si la sucesión $x, y$ satisface la condición (II) en la definición de sucesión regular.
 
-Aún podemos extraer más información si dirigimos nuestra atención al diagrama (\ref{complex2schema}): La fila de abajo es un subcomplejo(es decir, sus diferenciales no se salen de él) isomorfo a $K(x)$, mientras que la fila de arriba, también isomorfa a $K(x)$, es el cociente de $K(x, y)$ por la fila de abajo. En efecto, el $i-1$-ésimo termino del subcomplejo $K(x)$ está incluído en el $i$-ésimo térmido de $K(x, y)$, el cual proyecta hacia el $i$-ésimo término del cociente $K(x)$, así que la sucesión exacta larga de homologías que viene de esta sucesión exacta corta de complejos tiene la forma:
+Aún podemos extraer más información si dirigimos nuestra atención al diagrama (\ref{complex2schema}): La fila de abajo es un subcomplejo(es decir, sus diferenciales no se salen de él) isomorfo a $K(x)$, mientras que la fila de arriba, también isomorfa a $K(x)$, es el cociente de $K(x, y)$ por la fila de abajo. En efecto, el $i-1$-ésimo termino del subcomplejo $K(x)$ está incluído en el $i$-ésimo térmido de $K(x, y)$, el cual proyecta hacia el $i$-ésimo término del cociente $K(x)$, por lo que tenemos la siguiente sucesión exacta corta:
+
+$$ 0 \rightarrow K(x) \xrightarrow{i^\bullet} K(x,y) \xrightarrow{p^\bullet} K(x) \rightarrow 0 $$
+
+Además, un famoso lema llamado el \emph{"lema de la serpiente"} establece que es posible obtener una sucesión exacta larga de homologías a partir de una sucesión exacta corta de complejos, redefiniendo a los morfismos $f^i:C^i\rightarrow D^i$ como $H(f^i):H^i(C^{\bullet})\rightarrow H^i(D^{\bullet}), H(d^i)(x + B^i(C^\bullet)) = f^i(x) + B^i(D^\bullet)$ (el lema también garantiza que estos nuevos morfismos están bien definidos), así que esta sucesión exacta larga obtenida tiene la forma:
 
 $$\cdots \rightarrow H^0(K(x)) \xrightarrow{\delta} H^0(K(x)) \rightarrow H^1(K(x, y)) \rightarrow H^1(K(x)) \rightarrow \cdots$$
 
-donde la función $\delta$ es el "homomorfismo que conecta". Analicemos más detenidamente este diagrama, 
+donde la función $\delta$ es el "homomorfismo que conecta", definido como $\delta: \ker{} $. Analicemos más detenidamente este diagrama, 
