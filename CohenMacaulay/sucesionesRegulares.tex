@@ -180,4 +180,33 @@ En general, esto no nos dice mucho, pero si suponemos además que $R$ es un anil
 
 \begin{theorem}
 Si $R$ es un anillo noetheriano local, y $x, y$ están en el ideal maximal, entonces $x, y$ forman una sucesión regular sí y sólo si $H^1(K(x, y)) = 0$.
-\end{theorem}
+\end{theorem}\label{regular-homology}
+
+Por la manera en la que definimos al complejo de Koszul en (\ref{complex2common}), es claro que los complejos $K(x, y)$ y $K(y, x)$ son isomorfos. Así que, bajo la hipótesis del teorema anterior, $x, y$ es una sucesión regular sí y sólo si $y, x$ lo es. Esto es suficiente para mostrar que las sucesiones regulares permiten permutaciones.
+
+\begin{corollary}
+Si $R$ es un anillo noetheriano local, y $x_1, \dots, x_r$ es una sucesión regular de elementos en el ideal maximal de $R$, entonces cualquier permutación de $x_1, \dots, x_r$ es sucesión regular.
+\end{corollary}
+
+\begin{proof}
+Como toda permutación es producto de transposiciones de elementos vecinos, basta con probar que el corolario se cumple cuando transponemos dos elementos vecinos; es decir, si $x_1,\dots, x_i, x_{i+1}, \dots, x_r$ es una sucesión regular, entonces $x_1,\dots, x_{i+1}, x_i, \dots, x_r$ también lo es. Para esto basta con probar que $x_{i+1}, x_i$ es sucesión regular módulo $(x_1,\dots, x_{i-1})$, pero gracias a la propiedad (II) de la definición de sucesión regular, $x_i, x_{i+1}$ es una sucesión regular módulo $(x_1,\dots, x_{i-1})$, y gracias al teorema \ref{regular-homology} la sucesión permutada es regular.
+\end{proof}
+
+A primera impresión podemos pensar que la hipótesis de anillo local en estos dos resultados está de más, pero no es el caso.
+
+\begin{example}
+Consideremos el anillo
+
+$$R = K[x,y,z]/(x-1)z$$
+
+y la sucesión de elementos 
+
+$$x, (x-1)y.$$
+
+El ideal que generan es $(x, (x-1)y) = (x,y) \neq R$. Más aún, es fácil de ver que $x$ es regular en $R$, y $R/(x) = K[x,y]/(z)$. Así, $x, (x-1)y$ forman una sucesión regular, y
+
+$$H^1(K(x, (x-1)y)) = 0$$
+
+Sin embargo, $(x-1)y$ es un divisor de cero(se anula al multiplicarse con $z$), así que la sucesión en orden inverso no es regular.
+\end{example}
+Algo importante de destacar es lo siguiente: Si $x \in R$ es arbitrario, entonces $H^0(K(x, 0)) = H^0(K(x))$(ya que ambos son isomorfos a $(0:(x))$) incluso si el complejo $K(x, 0)$ no es isomorfo a $K(x)$.
