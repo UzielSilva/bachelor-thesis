@@ -15,7 +15,9 @@ Sea $R$ anillo y $M$ $R$-módulo. Una sucesión de elementos $x_1,\dots,x_n \in 
 
 Estudiaremos esta noción con una herramienta homológica llamada \emph{complejo de Koszul}. Su definición es algo complicada, por lo que primero trataremos de entender los casos más simples para después generalizar.
 
-Antes de continuar, necesitaremos un par de definiciones.
+\subsection{Definiciones}
+
+Antes de continuar, necesitaremos definiciones tanto para entender la definición particular del complejo de Koszul de longitud 1 y 2, como para entender la definición general(no constructiva) para cualquier longitud.
 
 \begin{definition}
 
@@ -81,6 +83,46 @@ es exacta. También se le denomina \emph{sucesión exacta corta} a una sucesión
 $$ 0 \rightarrow C^{\bullet} \xrightarrow{f^{\bullet}} D^{\bullet} \xrightarrow{g^{\bullet}} E^{\bullet} \rightarrow 0$$
 
 \end{definition}
+
+Para hablar de la definición general del complejo de Koszul necesitaremos unas cuantas definiciones de álgebra multilineal.
+
+\begin{definition}
+Sean $M, N$ $R$-módulos, definimos al producto tensorial $M \otimes_{R} N$ como el $R$-módulo generado por el conjunto 
+
+$$\{m \otimes n | m \in M, n \in N\}$$
+
+bajo la relación:
+
+$$(am + a'm')\otimes(bn + b'n') = ab(m\otimes n) + a'b(m'\otimes n) + ab'(m\otimes n') + a'b'(m'\otimes n')$$
+
+en donde 
+
+$$ r(m \otimes n) = (rm) \otimes n = m \otimes (rn) $$
+
+Cuando el anillo es inferido por el contexto, podemos denotarlo simplemente como $M \otimes N$.
+\end{definition}
+
+\begin{definition}
+Sea $R$ anillo, $N$ un $R$-módulo, y $k \in \mathbb{Z}^*$; definimos la $k$-ésima potencia tensorial como el producto tensorial de $N$ consigo mismo $k$ veces:
+
+$$ T^kN = N \otimes N \otimes \cdots \otimes N $$
+
+Por convención decimos que $T^0N = R$. El álgebra tensorial de $N$ es la suma directa de $T^kN$ para $k = 0, 1, 2, \dots$
+
+$$ T(N) = \bigoplus_{k=0}^{\infty} T^kN $$
+\end{definition}
+
+\begin{definition}
+Sea $N$ un $R$-módulo, el álgebra exterior $\wedge N$ de $N$ se define como el álgebra tensorial $T(N)$ módulo las relaciones $x \otimes y = -y \otimes x$ y $ x \otimes x = 0$ para toda $x, y \in N$. El producto de dos elementos $a, b \in \wedge N$ se denotará como $a \wedge b$.
+\end{definition}
+
+$\wedge N$ es un álgebra graduada, las componentes de grado $k$, que corresponden a $T^k(N)$ bajo la relación de equivalencia, se denotan como $\wedge^kN$. Además, es anticonmutativa en el sentido de que si $a$ y $b$ son elementos homogéneos, entonces
+
+$$a \wedge b = (-1)^{(\deg a)(\deg b)} b\wedge a$$
+
+y si $a$ es de grado $1$, entonces $a \wedge a = 0$. Abusaremos de la notación y escribiremos $(-1)^{ab}$ en lugar de $(-1)^{(\deg a)(\deg b)}$.
+
+La construcción de $\wedge N$ es funtorial. Esto significa que si tomamos $f: N \rightarrow M$ un morfismo de módulos, podemos definir al morfismo de álgebras $\wedge f: \wedge N \rightarrow \wedge M$ mandando $a \wedge b \wedge \dots$ a $fa \wedge fb \wedge \dots$
 
 \subsection{Complejos de Koszul de longitud 1 y 2}
 
@@ -210,3 +252,7 @@ $$H^1(K(x, (x-1)y)) = 0$$
 Sin embargo, $(x-1)y$ es un divisor de cero(se anula al multiplicarse con $z$), así que la sucesión en orden inverso no es regular.
 \end{example}
 Algo importante de destacar es lo siguiente: Si $x \in R$ es arbitrario, entonces $H^0(K(x, 0)) = H^0(K(x))$(ya que ambos son isomorfos a $(0:(x))$) incluso si el complejo $K(x, 0)$ no es isomorfo a $K(x)$.
+
+\subsection{Complejos de Koszul en general}
+
+Podemos definir 
