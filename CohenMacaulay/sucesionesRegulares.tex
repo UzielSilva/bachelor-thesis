@@ -122,7 +122,9 @@ $$a \wedge b = (-1)^{(\deg a)(\deg b)} b\wedge a$$
 
 y si $a$ es de grado $1$, entonces $a \wedge a = 0$. Abusaremos de la notación y escribiremos $(-1)^{ab}$ en lugar de $(-1)^{(\deg a)(\deg b)}$.
 
-La construcción de $\wedge N$ es funtorial. Esto significa que si tomamos $f: N \rightarrow M$ un morfismo de módulos, podemos definir al morfismo de álgebras $\wedge f: \wedge N \rightarrow \wedge M$ mandando $a \wedge b \wedge \dots$ a $fa \wedge fb \wedge \dots$
+La construcción de $\wedge N$ es funtorial. Esto significa que si tomamos $f: N \rightarrow M$ un morfismo de módulos, podemos definir al morfismo de álgebras $\wedge f: \wedge N \rightarrow \wedge M$ mandando $a \wedge b \wedge \dots$ a $fa \wedge fb \wedge \dots$.
+
+Por último, si $N$ es un módulo libre de rango $n$, entonces $\wedge^n N \cong R$, y si $f: N \rightarrow N$ es un morfismo, entonces $\wedge^nf$ es la multiplicación por el determinante de alguna matríz de representación de $f$. Además, $\wedge^mN = 0$ para $m > n$.
 
 \subsection{Complejos de Koszul de longitud 1 y 2}
 
@@ -255,4 +257,44 @@ Algo importante de destacar es lo siguiente: Si $x \in R$ es arbitrario, entonce
 
 \subsection{Complejos de Koszul en general}
 
-Podemos definir 
+Podemos construír al complejo de Koszul paso a paso, iterando el proceso antes mencionado, pero la siguiente construcción es más directa, simple, e invariante, por lo que tiene más ventajas. Después veremos que tanto esta deficinión como la definición iterativa son equivalentes.
+
+\begin{definition}
+
+Dado un módulo $N$ y un elemento $x \in N$, definimos al \emph{Complejo de Kozsul} como el complejo
+
+$$ K(x):0 \rightarrow R \rightarrow N \rightarrow \wedge^2N \rightarrow \cdots \rightarrow \wedge^iN \xrightarrow{d_x} \wedge^{i+1}N \rightarrow \cdots $$
+
+donde $d_x$ manda un elemento $a$ al elemento $x\wedge a$; en particular, $1 \in R$ es mandado a $d_x(1) = x \in N$. Si $N$ es libre de rango $n$ y
+
+$$ x = (x_1, \dots, x_n) \in R^n \cong N$$
+
+entonces en ocasiones escribiremos $K(x_1,\dots,x_n)$ en lugar de $K(x)$.
+
+\end{definition}
+
+Una de las ventajas de esta definición es que hace obvias las propiedades funtoriales del complejo de Koszul. En efecto, si $f:N \rightarrow M$ es un morfismo de módulos que manda $x \in N$ a $y \in M$, entonces el morfismo $\wedge f: \wedge N \rightarrow \wedge M $ preserva diferenciales, e induce un morfismo de complejos, por ser un morfismo de álgebras.
+
+Para familiarizarnos más con el complejo de Koszul, y dado que será importante después, mostremos que $H^n(K(x_1,\dots,x_n)) = R/(x_1,\dots,x_n)$. Sea $N = R^n$, y consideremos el lado derecho del complejo de Koszul:
+
+$$ \cdots \rightarrow \wedge^{n-1}N \rightarrow \wedge^nN \rightarrow \wedge^{n+1}N = 0 $$
+
+Sea $e_1, \dots, e_n$ una base para $N = R^n$. Tenemos que $\wedge^nN \cong R$ por el isomorfismo que manda $e_1\wedge\cdots\wedge e_n$ a $1$, además que $Z^n(K(x_1,\dots,x_n)) =  \wedge^nN$, por lo tanto basta con probar que $B^n(K(x_1,\dots,x_n))$ es isomorfo a $(x_1,\dots,x_n)$. De igual manera, $\wedge^{n-1}N\cong R^n$, con base $e_1\wedge\cdots\wedge e_{i-1}\wedge \hat{e}_i\wedge e_{i+1}\wedge\cdots\wedge e_n$, para $i = 1,\dots,n$, en donde el símbolo $\hat{e}_i$ indica que $e_i$ fue omitida. Esto debido a que la imagen de $e_1\wedge\cdots\wedge e_{i-1}\wedge \hat{e}_i\wedge e_{i+1}\wedge\cdots\wedge e_n$ bajo el diferencial del complejo de Kozsul es
+
+$$ \left(\sum x_ie_i\right)\wedge e_1\wedge\cdots\wedge e_{i-1}\wedge \hat{e}_i\wedge e_{i+1}\wedge\cdots\wedge e_n = (-1)^{i+1}x_ie_1\wedge\cdots\wedge e_n$$
+
+así que el cokernel de $\wedge^{n-1} \rightarrow \wedge^n$ es isomorfo a $R/(x_1,\dots,x_n)$.
+
+En general, como lo sugiere el caso de longitud $2$, la homología del complejo de Koszul guarda relación con las sucesiones regulares. No detectamos siempre si $x_1, \dots, x_n$ es una sucesión regular, pero detectamos algo más interesante: las longitudes de las sucesiones regulares maximales en el ideal $(x_1, \dots, x_n)$. El resultado siguiente también nos dice que todas estas longitudes son la misma.
+
+\begin{theorem}
+Sea $M$ un $R$-módulo finitamente generado. Si
+
+$$ H^j(M\otimes K(x_1,\dots,x_n)) = 0 \textrm{ para } j < r $$
+
+mientras que
+
+$$ H^r(M\otimes K(x_1,\dots,x_n)) \neq 0 $$
+
+entonces toda M-sucesión en $I = (x_1,\dots, x_n) \subset R$ tiene longitud $r$.
+\end{theorem}

@@ -194,6 +194,11 @@ footnotes.}
 
 \PassOptionsToClass{\PHD@papersize}{book}%
 
+% Document language
+
+\DeclareOption{english}{\PassOptionsToClass{english}{book}}
+\DeclareOption{spanish}{\PassOptionsToClass{spanish}{book}}
+
 % Column layout
 \newif\if@oneside\@onesidefalse
 \DeclareOption{oneside}{\PassOptionsToClass{\CurrentOption}{book}\@onesidetrue}%
