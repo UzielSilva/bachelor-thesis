@@ -252,7 +252,7 @@ El ideal que generan es $(x, (x-1)y) = (x,y) \neq R$. Más aún, es fácil de ve
 $$H^1(K(x, (x-1)y)) = 0$$
 
 Sin embargo, $(x-1)y$ es un divisor de cero(se anula al multiplicarse con $z$), así que la sucesión en orden inverso no es regular.
-\end{example}
+\end{example}\label{counterexample}
 Algo importante de destacar es lo siguiente: Si $x \in R$ es arbitrario, entonces $H^0(K(x, 0)) = H^0(K(x))$(ya que ambos son isomorfos a $(0:(x))$) incluso si el complejo $K(x, 0)$ no es isomorfo a $K(x)$.
 
 \subsection{Complejos de Koszul en general}
@@ -288,7 +288,7 @@ así que el cokernel de $\wedge^{n-1} \rightarrow \wedge^n$ es isomorfo a $R/(x_
 En general, como lo sugiere el caso de longitud $2$, la homología del complejo de Koszul guarda relación con las sucesiones regulares. No detectamos siempre si $x_1, \dots, x_n$ es una sucesión regular, pero detectamos algo más interesante: las longitudes de las sucesiones regulares maximales en el ideal $(x_1, \dots, x_n)$. El resultado siguiente también nos dice que todas estas longitudes son la misma.
 
 \begin{theorem}
-Sea $M$ un $R$-módulo finitamente generado. Si
+Sea $M$ un $R$-módulo finitamente generado, y $r \in \mathbb{Z}^*$. Si
 
 $$ H^j(M\otimes K(x_1,\dots,x_n)) = 0 \textrm{ para } j < r $$
 
@@ -298,3 +298,32 @@ $$ H^r(M\otimes K(x_1,\dots,x_n)) \neq 0 $$
 
 entonces toda M-sucesión en $I = (x_1,\dots, x_n) \subset R$ tiene longitud $r$.
 \end{theorem}
+
+El objetivo de esta sección y la siguiente será probar y entender mejor este resultado.
+
+\begin{corollary}
+Si $x_1,\dots,x_n$ es una $M$-sucesión, entonces la sucesión $M\otimes K(x_1,\dots, x_n)$ es exacta excepto en el extremo derecho; es decir, $H^j(M\otimes K(x_1, \dots, x_n)) = 0$ para $j < n$. Más aún, $H^n(M\otimes K(x_1, \dots, x_n)) = M/(x_1, \dots, x_n)$
+\end{corollary}
+\begin{proof}
+La longitud de una $M$-sucesión maximal en $(x_1, \dots, x_n)$  es $l>n$, así que el teorema anterior nos confirma la primera afirmación. Ahora, el producto tensorial como funtor es exacto por la derecha, por lo que preserva cokernels, así que
+
+\begin{align*}
+\begin{split}
+\textrm{coker}(M\otimes\wedge^{n-1}N\rightarrow M\otimes\wedge^nN) & = M\otimes \textrm{coker}(\wedge^{n-1}N\rightarrow \wedge^nN)\\
+& = M \otimes H^n(K(x_1,\dots,x_n))
+\end{split}
+\end{align*}
+
+Usando los cálculos que hicimos de $H^n(K(x_1,\dots,x_n))$, concluímos que
+
+\begin{align*}
+\begin{split}
+H^n(M\otimes K(x_1,\dots,x_n)) & = M\otimes R/(x_1,\dots,x_n)\\
+& = M/(x_1,\dots,x_n)M
+\end{split}
+\end{align*}
+
+Se puede apreciar que el recíproco es falso con el Ejemplo \ref{counterexample}; pero veremos más adelante que bajo la hipótesis de anillo local, es válido el resultado.
+
+
+\end{proof}
