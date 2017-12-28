@@ -1,1 +1,15 @@
 \section{Profundidad}
+
+Retomando las observaciones de la sección anterior, si tenemos $I$ ideal de un anillo $R$, y $M$ un $R$-módulo, entonces la profundidad de $I$ en $M$(denotado como $\depth(I, M)$) es la longitud de cualquier $M$-sucesión maximal contenida en $I$.
+
+Frecuentemente nos veremos en el caso de localizar un anillo, así que algunas observaciones sobre el comportamiento de la profundidad bajo localizaciones serán de utilidad.
+
+\begin{lemma}
+Si $R$ es un anillo, y $P$ es un ideal primo en el soporte de un $R$-módulo finítamente generado $M$. Entonces toda $M$-sucesión en $P$ localiza a una $M_P$ sucesión. De esta manera, para cualquier ideal $I \subset P$ tenemos que $\depth(I,M) \leq \depth(I_P, M_P)$, este último tomado en el anillo $R_P$. En general, la inecuación puede ser estricta, pero para cualquier ideal $I$, existen ideales maximales $P$ en el soporte de $M$ tales que $\depth(I,M) = \depth(I_P, M_P)$. En particular, si $P$ es un ideal maximal, entonces $\depth(I,M) = \depth(I_P, M_P)$.
+\end{lemma}
+
+\begin{proof}
+Para la primera afirmación, el lema de Nakayama nos garantiza que $I_PM_P \neq M_P$, que es la única parte de la demostración que no es tan evidente. La profundidad puede crecer dado a que la localización $M \rightarrow M_P$ puede anular elementos que anulaban en $M$ a elementos de $I$, por lo tanto, estos elementos de $I$ se volverían regulares.
+
+Para la segunda afirmación, sea $I = (x_1,\dots,x_n)$ y $r = \depth(I, M)$. Por 
+\end{proof}

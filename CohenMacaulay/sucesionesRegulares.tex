@@ -222,13 +222,13 @@ $$H^0(K(x))/yH^0(K(x)) = 0$$
 
 En general, esto no nos dice mucho, pero si suponemos además que $R$ es un anillo noetheriano local y $y$ está en el ideal maximal, entonces, por el lema de Nakayama(falta hablar de esto) tenemos que $H^0(K(x)) = 0$. Por ende, $x$ es regular, y $x, y$ forman una sucesión regular por lo visto anteriormente. Enunciaremos lo discutido anteriormente en el siguiente teorema.
 
-\begin{theorem}
+\begin{theorem}\label{regular-homology}
 Si $R$ es un anillo noetheriano local, y $x, y$ están en el ideal maximal, entonces $x, y$ forman una sucesión regular sí y sólo si $H^1(K(x, y)) = 0$.
-\end{theorem}\label{regular-homology}
+\end{theorem}
 
 Por la manera en la que definimos al complejo de Koszul en (\ref{complex2common}), es claro que los complejos $K(x, y)$ y $K(y, x)$ son isomorfos. Así que, bajo la hipótesis del teorema anterior, $x, y$ es una sucesión regular sí y sólo si $y, x$ lo es. Esto es suficiente para mostrar que las sucesiones regulares permiten permutaciones.
 
-\begin{corollary}
+\begin{corollary}\label{m-sequence-permutation-corollary}
 Si $R$ es un anillo noetheriano local, y $x_1, \dots, x_r$ es una sucesión regular de elementos en el ideal maximal de $R$, entonces cualquier permutación de $x_1, \dots, x_r$ es sucesión regular.
 \end{corollary}
 
@@ -238,7 +238,7 @@ Como toda permutación es producto de transposiciones de elementos vecinos, bast
 
 A primera impresión podemos pensar que la hipótesis de anillo local en estos dos resultados está de más, pero no es el caso.
 
-\begin{example}
+\begin{example}\label{counterexample-nolocal}
 Consideremos el anillo
 
 $$R = K[x,y,z]/(x-1)z$$
@@ -252,7 +252,7 @@ El ideal que generan es $(x, (x-1)y) = (x,y) \neq R$. Más aún, es fácil de ve
 $$H^1(K(x, (x-1)y)) = 0$$
 
 Sin embargo, $(x-1)y$ es un divisor de cero(se anula al multiplicarse con $z$), así que la sucesión en orden inverso no es regular.
-\end{example}\label{counterexample}
+\end{example}
 Algo importante de destacar es lo siguiente: Si $x \in R$ es arbitrario, entonces $H^0(K(x, 0)) = H^0(K(x))$(ya que ambos son isomorfos a $(0:(x))$) incluso si el complejo $K(x, 0)$ no es isomorfo a $K(x)$.
 
 \subsection{Complejos de Koszul en general}
@@ -287,7 +287,7 @@ así que el cokernel de $\wedge^{n-1} \rightarrow \wedge^n$ es isomorfo a $R/(x_
 
 En general, como lo sugiere el caso de longitud $2$, la homología del complejo de Koszul guarda relación con las sucesiones regulares. No detectamos siempre si $x_1, \dots, x_n$ es una sucesión regular, pero detectamos algo más interesante: las longitudes de las sucesiones regulares maximales en el ideal $(x_1, \dots, x_n)$. El resultado siguiente también nos dice que todas estas longitudes son la misma.
 
-\begin{theorem}
+\begin{theorem}\label{sequence-length-r-theorem}
 Sea $M$ un $R$-módulo finitamente generado, y $r \in \mathbb{Z}^*$. Si
 
 $$ H^j(M\otimes K(x_1,\dots,x_n)) = 0 \textrm{ para } j < r $$
@@ -299,7 +299,7 @@ $$ H^r(M\otimes K(x_1,\dots,x_n)) \neq 0 $$
 entonces toda M-sucesión en $I = (x_1,\dots, x_n) \subset R$ tiene longitud $r$.
 \end{theorem}
 
-El objetivo de esta sección y la siguiente será probar y entender mejor este resultado.
+La demostración de este teorema implica definir herramientas que no necesitaremos, pero se puede encontrar a detalle en (Eisenbud referencia).
 
 \begin{corollary}
 Si $x_1,\dots,x_n$ es una $M$-sucesión, entonces la sucesión $M\otimes K(x_1,\dots, x_n)$ es exacta excepto en el extremo derecho; es decir, $H^j(M\otimes K(x_1, \dots, x_n)) = 0$ para $j < n$. Más aún, $H^n(M\otimes K(x_1, \dots, x_n)) = M/(x_1, \dots, x_n)$
@@ -325,4 +325,73 @@ H^n(M\otimes K(x_1,\dots,x_n)) & = M\otimes R/(x_1,\dots,x_n)\\
 
 \end{proof}
 
-Se puede apreciar que el recíproco es falso con el Ejemplo \ref{counterexample}; pero veremos más adelante que bajo la hipótesis de anillo local, es válido el resultado.
+Se puede apreciar que el recíproco es falso con el Ejemplo \ref{counterexample-nolocal}, ya que en ningún momento usamos el orden de $x_1,\dots, x_n$, así que podríamos permutar para obtener una sucesión que no es regular; pero veremos más adelante que bajo la hipótesis de anillo local es válido el resultado.
+
+Veamos ahora que si $IM \neq M$, entonces, al menos
+
+$$H^n(M\otimes K(x_1,\dots,x_n)) = M/(x_1,\dots,x_n)M \neq 0$$
+
+mientras, por supuesto,
+
+$$ H^{-1}(M\otimes K(x_1,\dots,x_n)) = 0,$$
+
+así que existe una $r$ para la cual el Teorema \ref{sequence-length-r-theorem} se puede aplicar. Por otro lado, veremos que si $IM = M$, entonces, para toda $j \in Z$, $H^j(M\otimes K(x_1,\dots,x_n)) = 0$.
+
+Si $IM \neq M$, entonces por el Teorema \ref{sequence-length-r-theorem} las longitudes de toda $M$-sucesión maximal en $I$ es la misma. Definimos a la \emph{profundidad} de $I$ en $M$, denotada como $\depth(I,M)$, como la longitud de cualquier $M$-sucesión maximal en $I$. Si $M = R$, simplemente decimos profundidad de $I$. Si $IM = M$, por convención diremos que $\depth(I,M) = \infty$.
+
+La profundidad de $I$ es una especie de medida aritmética del "tamaño" de $I$, mientras que la codimensión de $I$ es una medida geométrica. Veremos que, tal como la codimensión, la profundidad depende únicamente del radical de $I$, y tiene un significado geométrico en el sentido de que, en el caso de los anillos afines, está determinada por las intersecciones de la variedad generada por $I$. Siguiendo esta idea, el teorema \ref{sequence-length-r-theorem} implica un análogo del teorema del ideal principal(que menciona que la altura de cada ideal propio $I$ generado por $n$ elementos es a lo más $n$): Un ideal con $r$ generadores puede tener profundidad a lo más $n$. Más adelante veremos que, en general, $\depth I \leq \codim I$.
+
+Bajo la hipótesis de anillo local podemos dar un resultado más fuerte, y así, tener un criterio para saber si una sucesión en particular es una $M$-sucesión.
+
+\begin{theorem}\label{sequence-criterion-regular}
+Sea $R$ anillo local con ideal maximal $\mathfrak{m}$, y sea $M$ un $R$-módulo finitamente generado. Sean $x_1,\dots,x_n\in\mathfrak{m}$. Si para alguna $K$
+
+$$ H^k(M \otimes K(x_1,\dots,x_n)) = 0, $$
+
+entonces 
+
+$$ (\forall j \leq k)(H^j(M\otimes K(x_1,\dots,x_n))). $$
+
+En particular, si $H^{n-1}(H\otimes K(x_1,\dots,x_n)) = 0$, entonces $x_1,\dots,x_n$ es una $M$-sucesión.
+\end{theorem}
+
+La demostración de este teorema implica definir herramientas que no necesitaremos, pero se puede encontrar a detalle en (Eisenbud referencia).
+
+Una consecuencia inmediata de este teorema refuerza al corolario \ref{m-sequence-permutation-corollary}.
+
+\begin{corollary}\label{m-sequence-from-another-criteria}
+Sea $R$ anillo local, $M$ un $R$-módulo finitamente generado, y $(x_1,\dots,x_n) \subset R$ un ideal propio que contiene a una $M$-sucesión de longitud $n$, entonces $x_1,\dots,x_n$ es una $M$-sucesión.
+\end{corollary}
+
+\begin{proof}
+Como $M$ es finitamente generado, el lema de Nakayama muestra que 
+
+$$H^n(M \otimes K(x_1,\dots,x_n)) = M/(x_1,\dots,x_n)M \neq 0.$$
+
+Si $r$ es el entero más pequeño tal que $H^r(M\otimes K(x_1,\dots,x_n)) \neq 0$, entonces, por el teorema \ref{sequence-length-r-theorem}, toda $M$-sucesión maximal en $(x_1,\dots,x_n)$ tiene longitud $r$, y por nuestra hipótesis, $r = n$. Así, $x_1,\dots,x_n$ es una sucesión regular por el teorema \ref{sequence-criterion-regular}.
+\end{proof}
+
+Este resultado se puede usar frecuentemente para demostrar que una sucesión dada es regular. Para ejemplificarlo, demostraremos el siguiente corolario.
+
+\begin{corollary}[Naturaleza geométrica de la profundidad]
+Sea $R$ anillo, y $M$ un $R$-módulo finitamente generado.
+\begin{enumerate}[a.]
+\item Si $x_1,\dots,x_n$ es una $M$-sucesión, y $t_1,\dots,t_n \in \mathbb{Z}^+$, entonces $x_1^{t_1},\dots,x_n^{t_n}$ es una $M$-sucesión.
+\item Si $I$ es un ideal de $R$ y $J$ es su radical, tenemos que $\depth(I,M) = \depth(J, M)$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+\begin{enumerate}[a.]
+\item Haremos inducción sobre $r$ para reducir el problema al caso de anillo local. Para $r = 1$ observemos que la potencia de un elemento regular es regular.
+
+Ahora, supongamos que la sucesión $x_1^{t_1},\dots,x_{n-1}^{t_{n-1}}$ es regular. Basta con probar que $x_n$ es regular en $M/(x_1^{t_1},\dots,x_{n-1}^{t_{n-1}})M$, lo que equivale a probar que el automorfismo $\bar{x_n}$ definido por la multiplicación por $x_n$ tiene kernel 0. 
+
+Veamos que, si $y \in \ker \bar{x_n}$ entonces existe algún ideal primo $P$ tal que $(0:y) \subset P$. Al localizar a $M/(x_1^{t_1},\dots,x_{n-1}^{t_{n-1}})M$ en $P$, tenemos que $\frac{y}{1} \neq \frac{0}{1}$, ya que de lo contrario habría $t \in R\setminus P$ tal que $ty = 0$, una contradicción. Entonces, $x_n\cdot\frac{y}{1} = 0$ y el kernel del automorfismo inducido es distinto de 0. Por lo anterior, probemos que para todo ideal primo, el automorfismo inducido tiene kernel 0, pero eso reduce el problema al caso de anillo local, ya que si $P$ no contiene a algún $x_1,\dots,x_n$, entonces $M/(x_1^{t_1},\dots,x_{n-1}^{t_{n-1}})M = 0$ ó $x_n$ es unidad. Por lo tanto asumiremos que $R$ es un anillo local y $x_1,\dots,x_n$ está contenida en el ideal maximal.
+
+Si $x_1,\dots,x_n$ es una sucesión regular, entonces claramente $x_1,\dots,x_{n-1},x_n^{t_n}$ es regular. Por el corolario \ref{m-sequence-from-another-criteria}, $x_n^{t_n},x_1,\dots,x_{n-1}$ es regular. Iterando este proceso, obtenemos que $x_{n-1}^{t_{n-1}}$, $x_n^{t_n}$, $x_1$, $\dots$, $x_{n-2}$ también es regular. Después de $n$ iteraciones concluímos que $x_1^{t_1},\dots,x_n^{t_n}$ es sucesión regular.
+
+\item Como $I \subset J$, es claro que $\depth(I,M) \leq \depth(J,M)$. La otra desigualdad se da gracias al inciso \emph{a}, ya que si $x_1, \dots, x_n$ es una $M$-sucesión en $J$, entonces existen $t_1,\dots,t_n \in Z^+$ tal que $x_1^{t_1},\dots,x_n^{t_n}$ es $M$-sucesión en $I$.
+
+\end{enumerate}
+\end{proof}
