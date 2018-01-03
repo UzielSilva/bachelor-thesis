@@ -17,39 +17,45 @@ Estudiaremos esta noción con una herramienta homológica llamada \emph{complejo
 
 \subsection{Definiciones}
 
-Antes de continuar, necesitaremos definiciones tanto para entender la definición particular del complejo de Koszul de longitud 1 y 2, como para entender la definición general(no constructiva) para cualquier longitud.
+Antes de continuar, necesitaremos definiciones tanto para entender la definición particular del complejo de Koszul de longitud 1 y 2, como para entender la definición general(no constructiva) para cualquier longitud. Para evitar la repetición innecesaria de definiciones, asumiremos que $R$ es un anillo.
+
+%\begin{definition}
+%Dado $R$ anillo, un \emph{$R$-módulo} $M$ es un grupo abeliano con una acción de $R$, es decir, una función $R \times M \rightarrow M$, denotada como $(r,m) \rightarrow rm$, que satisface las siguientes propiedades:
+
+%\[  \]
+%\end{definition}
+%\begin{definition}
+
+\begin{definition}
+Sean $M, N$ submódulos de un $R$-módulo $P$, definimos al ideal cociente como
+
+$$(M:N) := \{r \in R|rN\subset M\}.$$
+
+Abusaremos de la notación y escribiremos $(x:y)$ en lugar de $((x):(y))$. Si $I \subset R$ es un ideal y $M \subset P$ es un submódulo, usaremos la notación $(M:I)$ ó $(M:_PI)$ para referirnos al submódulo $\{p \in P|pI \subset M\}$. 
+
+\end{definition}
+
+\begin{definition}
+Sea $M$ un $R$-módulo, el \emph{anulador} de $M$, denotado como $\ann(M)$, se define como
+
+$$ \ann(M) = (0:M) = \{r \in R | rM = 0\}. $$
+
+\end{definition}
+
 
 \begin{definition}
 
-Un \emph{complejo de cadenas de $R$-módulos} (o simplemente \emph{complejo}) $C^{\bullet}$ es una sucesión de módulos $\{C^i\}_{i \in \mathbb{Z}}$ y funciones $\{d^i: C^{i-1}\rightarrow C^i\}_{i \in \mathbb{Z}}$ tal que, para toda $i \in \mathbb{Z}$, $d^{i+1} \circ d^i = 0$. En ocasiones a estas funciones se les denomina como diferenciales.
+Un \emph{complejo de cocadenas de $R$-módulos} (o simplemente \emph{complejo}) $C^{\bullet}$ es una sucesión de módulos $\{C^i\}_{i \in \mathbb{Z}}$ y funciones $\{d^i: C^{i-1}\rightarrow C^i\}_{i \in \mathbb{Z}}$ tal que, para toda $i \in \mathbb{Z}$, $d^{i+1} \circ d^i = 0$. En ocasiones a estas funciones se les denomina como diferenciales.
 
 Nos referimos al kernel de $d^n$ como $Z^n(C^\bullet)$, y a su imagen como $B^n(C^\bullet)$.
 
-La \emph{homología} $H^i$ de este complejo en $C^i$ es el módulo:
+La \emph{cohomología} $H^i$ de este complejo en $C^i$ es el módulo:
 
 $$ \ker(d^{i+1})/\textrm{im}(d^{i})$$
 
 \end{definition}
 
 Un complejo, en efecto, puede usar índices finitos, si lo completamos con módulos cero y morfismos cero.
-
-Es de notar que la enumeración y el indexado en la literatura se manejan de derecha a izquierda y con subíndices en lugar de superíndices, pero por conveniencia nosotros usaremos esta notación, que se usa más frecuentemente para hablar de la cohomología.
-
-Para hablar de la homología de los complejos de Koszul, la siguiente definición nos será de mucha utilidad.
-
-\begin{definition}
-
-Si $M$ es un submódulo de un $S$-módulo libre, y $J$ es un ideal de $S$, podemos definir a los siguientes submódulos:
-
-$$(M:J) := \{f \in F|fJ\subset M\}\subset F$$
-
-$$(M:J^\infty) := \bigcup_{d=1}^\infty(M:J^d)\subset F$$
-
-Al submódulo $(M:J^\infty)$ se le conoce como la \emph{saturación de $M$ con respecto a $J$}. Podemos abusar de la notación y escribir $(x:y)$ en lugar de $((x):(y))$.
-
-\end{definition}
-
-Nótese que gracias a esta definición es muy sencillo representar a los divisores de cero de un ideal $A$, que de hecho son un $R$-módulo. Basta con representarlos como $(0:A)$.
 
 También, cuando estudiamos relaciones entre complejos es inevitable encontrarnos en algún momento con diagramas conmutativos, lo que nos lleva a las siguientes definiciones.
 
@@ -78,7 +84,7 @@ Es una sucesión de morfismos de cadenas $\{f^{\bullet}_i:C^{\bullet}_{i-1}\righ
 
 $$ \cdots \rightarrow C^{j}_{i-1} \xrightarrow{f^j_i} C^{j}_i \xrightarrow{f^j_{i+1}} C^{j}_{i+1} \rightarrow \cdots$$
 
-es exacta. También se le denomina \emph{sucesión exacta corta} a una sucesión exacta que consta de sólamente dos morfismos $f^\bullet:C\rightarrow D$, $g^\bullet:D\rightarrow E$ consecutivos distintos de cero, representándose de la siguente manera:
+es exacta, es decir, para toda $i \in Z$, $\ker(f^j_{i+1}) = \im(f^j_i)$. También se le denomina \emph{sucesión exacta corta} a una sucesión exacta que consta de sólamente dos morfismos $f^\bullet:C\rightarrow D$, $g^\bullet:D\rightarrow E$ consecutivos distintos de cero, representándose de la siguente manera:
 
 $$ 0 \rightarrow C^{\bullet} \xrightarrow{f^{\bullet}} D^{\bullet} \xrightarrow{g^{\bullet}} E^{\bullet} \rightarrow 0$$
 
@@ -344,7 +350,7 @@ La profundidad de $I$ es una especie de medida aritmética del "tamaño" de $I$,
 Bajo la hipótesis de anillo local podemos dar un resultado más fuerte, y así, tener un criterio para saber si una sucesión en particular es una $M$-sucesión.
 
 \begin{theorem}\label{sequence-criterion-regular}
-Sea $R$ anillo local con ideal maximal $\mathfrak{m}$, y sea $M$ un $R$-módulo finitamente generado. Sean $x_1,\dots,x_n\in\mathfrak{m}$. Si para alguna $K$
+Sea $R$ anillo local con ideal maximal $\mathfrak{m}$, y sea $M$ un $R$-módulo finitamente generado. Sean $x_1,\dots,x_n\in\mathfrak{m}$. Si para alguna $k \leq n$
 
 $$ H^k(M \otimes K(x_1,\dots,x_n)) = 0, $$
 
@@ -371,9 +377,17 @@ $$H^n(M \otimes K(x_1,\dots,x_n)) = M/(x_1,\dots,x_n)M \neq 0.$$
 Si $r$ es el entero más pequeño tal que $H^r(M\otimes K(x_1,\dots,x_n)) \neq 0$, entonces, por el teorema \ref{sequence-length-r-theorem}, toda $M$-sucesión maximal en $(x_1,\dots,x_n)$ tiene longitud $r$, y por nuestra hipótesis, $r = n$. Así, $x_1,\dots,x_n$ es una sucesión regular por el teorema \ref{sequence-criterion-regular}.
 \end{proof}
 
-Este resultado se puede usar frecuentemente para demostrar que una sucesión dada es regular. Para ejemplificarlo, demostraremos el siguiente corolario.
+Este resultado se puede usar frecuentemente para demostrar que una sucesión dada es regular. Para ejemplificarlo, demostraremos un resultado que nos da cierta intuición geométrica de la profundidad. Antes de eso, necesitaremos un lema.
 
-\begin{corollary}[Naturaleza geométrica de la profundidad]
+\begin{lemma}\label{localized-module-not-zero}
+Sea $R$ anillo y $M$ un $R$-módulo. Si $M \neq 0$, entonces existen ideales primos y maximales $P$ tales que $M_P \neq 0$.
+\end{lemma}
+
+\begin{proof}
+Sea $x \in M$, existe algún ideal primo $P$ tal que $(0:x) \subset P$. Al localizar a $M$ en $P$, tenemos que $\frac{x}{1} \neq \frac{0}{1}$, ya que de lo contrario habría $t \in R\setminus P$ tal que $ty = 0$, una contradicción. Cualquier ideal maximal que contenga a $P$ compartirá esta propiedad.
+\end{proof}
+
+\begin{corollary}[Naturaleza geométrica de la profundidad]\label{geometry-nature-depth}
 Sea $R$ anillo, y $M$ un $R$-módulo finitamente generado.
 \begin{enumerate}[a.]
 \item Si $x_1,\dots,x_n$ es una $M$-sucesión, y $t_1,\dots,t_n \in \mathbb{Z}^+$, entonces $x_1^{t_1},\dots,x_n^{t_n}$ es una $M$-sucesión.
@@ -387,7 +401,7 @@ Sea $R$ anillo, y $M$ un $R$-módulo finitamente generado.
 
 Ahora, supongamos que la sucesión $x_1^{t_1},\dots,x_{n-1}^{t_{n-1}}$ es regular. Basta con probar que $x_n$ es regular en $M/(x_1^{t_1},\dots,x_{n-1}^{t_{n-1}})M$, lo que equivale a probar que el automorfismo $\bar{x_n}$ definido por la multiplicación por $x_n$ tiene kernel 0. 
 
-Veamos que, si $y \in \ker \bar{x_n}$ entonces existe algún ideal primo $P$ tal que $(0:y) \subset P$. Al localizar a $M/(x_1^{t_1},\dots,x_{n-1}^{t_{n-1}})M$ en $P$, tenemos que $\frac{y}{1} \neq \frac{0}{1}$, ya que de lo contrario habría $t \in R\setminus P$ tal que $ty = 0$, una contradicción. Entonces, $x_n\cdot\frac{y}{1} = 0$ y el kernel del automorfismo inducido es distinto de 0. Por lo anterior, probemos que para todo ideal primo, el automorfismo inducido tiene kernel 0, pero eso reduce el problema al caso de anillo local, ya que si $P$ no contiene a algún $x_1,\dots,x_n$, entonces $M/(x_1^{t_1},\dots,x_{n-1}^{t_{n-1}})M = 0$ ó $x_n$ es unidad. Por lo tanto asumiremos que $R$ es un anillo local y $x_1,\dots,x_n$ está contenida en el ideal maximal.
+Por la contrapuesta del Lema \ref{localized-module-not-zero} basta probar que para todo ideal primo $P$, el automorfismo inducido en la localización de $M/(x_1^{t_1},\dots,x_{n-1}^{t_{n-1}})M$ en $P$ tiene kernel 0. Eso reduce el problema al caso de anillo local, ya que si $P$ no contiene a algún $x_1,\dots,x_n$, entonces $M/(x_1^{t_1},\dots,x_{n-1}^{t_{n-1}})M = 0$ ó $x_n$ es unidad. Por lo tanto asumiremos que $R$ es un anillo local y $x_1,\dots,x_n$ está contenida en el ideal maximal.
 
 Si $x_1,\dots,x_n$ es una sucesión regular, entonces claramente $x_1,\dots,x_{n-1},x_n^{t_n}$ es regular. Por el corolario \ref{m-sequence-from-another-criteria}, $x_n^{t_n},x_1,\dots,x_{n-1}$ es regular. Iterando este proceso, obtenemos que $x_{n-1}^{t_{n-1}}$, $x_n^{t_n}$, $x_1$, $\dots$, $x_{n-2}$ también es regular. Después de $n$ iteraciones concluímos que $x_1^{t_1},\dots,x_n^{t_n}$ es sucesión regular.
 

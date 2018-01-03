@@ -1,0 +1,17 @@
+\section{Anillos Cohen-Macaulay}
+
+En la sección anterior hablamos un poco de las propiedades que comparten la profundidad y la codimensión, y mostramos que, para un anillo $R$, y un ideal $I \subset R$ la desigualdad $\depth(I) \leq codim(I)$ siempre se cumple. El siguiente resultado nos ayudará a explotar las propiedades de la igualdad cuando suceda.
+
+\begin{theorem}
+Sea $R$ anillo tal que para todo $P\subset R$ ideal maximal, $\depth(P) = \codim(P)$. Si $I \subset R$ es un ideal propio, entonces $\depth(I) = \codim(I)$.
+\end{theorem}
+
+\begin{proof}
+Por la Proposición \ref{depth-leq-codimension} tenemos que $\depth(I) \leq \codim(I)$, probemos la otra desigualdad.
+
+Gracias al Lema \ref{fixed-depth-localization}, podemos localizar en algún ideal maximal $P \supset I$ sin afectar la profundidad de $I$ ni la de $P$, así que asumiremos que $R$ es anillo local con $P$ ideal maximal, e $I \subset P$. 
+
+Analicemos primero el caso en el cual $P$ es ideal primo minimal de $I$ (es decir, no hay un ideal primo $Q$ tal que $I \subset Q \subsetneq P$). Por definición, $\codim(I) = \codim(P)$. Veamos ahora que $\sqrt{I} = P$. Es obvio que $\sqrt{I} \subset P$, así que sólo probaremos la otra contención. Sea $x \not\in \sqrt{I}$ y sea $U = \{1\}\cup\{x^n|n \geq 1\}$(notemos que $U$ es un conjunto multiplicativamente cerrado). Tomemos $Q$ ideal maximal entre los ideales que contienen a $I$ y no tocan a $U$. Por maximalidad, $Q$ es primo, y como $P$ es ideal primo minimal de $I$ y maximal, $P = Q$ y $x \not\in P$. Por el Corolario \ref{geometry-nature-depth}, $\depth(I) = \depth(\sqrt{I}) = \depth(P)$. Así que el teorema se cumple para $I$.
+
+Ahora supongamos que $P$ no es ideal primo minimal de $I$.
+\end{proof}
