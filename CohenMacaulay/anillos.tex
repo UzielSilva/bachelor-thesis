@@ -51,3 +51,23 @@ Así que asumiremos que $R$ es anillo local con $Q$ ideal maximal. El anillo $R[
 
 Por otro lado, $\codim(P) = 1 + \codim(Q)$ por el teorema del ideal principal. Como $R$ es Cohen-Macaulay, tenemos que $\codim(Q) = \depth(Q)$; por lo tanto, $\codim(P) \leq \depth(P)$. La desigualdad contraria es inmediata de la Proposición \ref{depth-leq-codimension}.
 \end{proof}
+
+Los anillos Cohen-Macaulay generalizan en cierta manera a los \emph{anillos regulares locales}, un anillo local de dimensión $d$ es \emph{regular} si su ideal maximal puede generarse por exactamente $d$ elementos. A esta sucesión de elementos generadores se le llama \emph{sistema regular de parámetros}.
+
+Uno de las propiedades más destacadas de estos anillos es que son dominios enteros(véase Corolario 10.14 del Eisenbud). Partiendo de ello, podemos enunciar el siguiente lema.
+
+\begin{lemma}\label{regular-parameters-sequence}
+Si $x_1, \dots, x_d$ es un sistema regular de parámetros de un anillo regular local $R$, entonces, $x_1,\dots, x_d$ es una $R$-sucesión
+\end{lemma}
+
+\begin{proof}
+Para cada $i$ el anillo $R/(x_1,\dots,x_i)$ es un anillo regular local, y por lo tanto un dominio entero. La imagen de $x_{i+1}$ debe de ser distinta de cero porque de otra manera el ideal maximal de $R$ se generaría con menos elementos.
+\end{proof} 
+
+\begin{corollary}
+Si $R$ es un anillo regular local, entonces es Cohen-Macaulay.
+\end{corollary}
+
+\begin{proof}
+Se sigue del Lema \ref{regular-parameters-sequence} y del Teorema \ref{sequence-length-r-theorem}.
+\end{proof}
