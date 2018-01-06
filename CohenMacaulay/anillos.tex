@@ -2,7 +2,7 @@
 
 En la sección anterior hablamos un poco de las propiedades que comparten la profundidad y la codimensión, y mostramos que, para un anillo $R$, y un ideal $I \subset R$ la desigualdad $\depth(I) \leq codim(I)$ siempre se cumple. El siguiente resultado nos ayudará a explotar las propiedades de la igualdad cuando suceda.
 
-\begin{theorem}
+\begin{theorem}\label{cohen-macaulay-well-definition}
 Sea $R$ anillo tal que para todo $P\subset R$ ideal maximal, $\depth(P) = \codim(P)$. Si $I \subset R$ es un ideal propio, entonces $\depth(I) = \codim(I)$.
 \end{theorem}
 
@@ -13,5 +13,41 @@ Gracias al Lema \ref{fixed-depth-localization}, podemos localizar en algún idea
 
 Analicemos primero el caso en el cual $P$ es ideal primo minimal de $I$ (es decir, no hay un ideal primo $Q$ tal que $I \subset Q \subsetneq P$). Por definición, $\codim(I) = \codim(P)$. Veamos ahora que $\sqrt{I} = P$. Es obvio que $\sqrt{I} \subset P$, así que sólo probaremos la otra contención. Sea $x \not\in \sqrt{I}$ y sea $U = \{1\}\cup\{x^n|n \geq 1\}$(notemos que $U$ es un conjunto multiplicativamente cerrado). Tomemos $Q$ ideal maximal entre los ideales que contienen a $I$ y no tocan a $U$. Por maximalidad, $Q$ es primo, y como $P$ es ideal primo minimal de $I$ y maximal, $P = Q$ y $x \not\in P$. Por el Corolario \ref{geometry-nature-depth}, $\depth(I) = \depth(\sqrt{I}) = \depth(P)$. Así que el teorema se cumple para $I$.
 
-Ahora supongamos que $P$ no es ideal primo minimal de $I$.
+Ahora supongamos que $P$ no es ideal primo minimal de $I$. Podemos asumir por inducción sobre cadenas de ideales que el teorema se cumple para todo ideal estrictamente más grande que $I$. Podemos encontrar por ``evasión de primos''(véase Lema 3.3 de Eisenbud referencia) un elemento $x \in P$ tal que no está contenido en ningún ideal primo minimal de $I$. Por la inducción tenemos que $\depth(I + (x)) = \codim(I + (x)) = \codim(I) + 1$. Pero por el Lema \ref{fixed-depth-localization}, $\depth(I + (x)) \leq \depth(I) + 1$. Así, $\depth(I) \geq \codim(I)$, como se buscaba.
+\end{proof}
+
+El Teorema \ref{cohen-macaulay-well-definition} es tan útil, que su hipótesis se ha convertido en una de las definiciones más importantes en el álgebra conmutativa.
+
+\begin{definition}
+Un anillo \emph{Cohen-Macaulay} es un anillo tal que para cada ideal maximal $P$ se cumple que $\depth(P) = \codim(P)$.
+\end{definition}
+
+La propiedad de ser Cohen-Macaulay es estrictamente local.
+
+\begin{proposition}\label{cohen-macaulay-iff-maximals}
+Un anillo $R$ es Cohen-Macaulay sí y sólo si para todo ideal maximal $P$ se cumple que $R_P$ es Cohen-Macaulay, y así, para todo ideal primo $Q$, $R_Q$ es Cohen-Macaulay.
+\end{proposition}
+
+\begin{proof}
+Si $R$ es Cohen-Macaulay, y $Q$ es un ideal primo, entonces $\codim(Q_Q) = \codim(Q) = \depth(Q,R) \leq \depth(Q_Q) \leq \codim(Q_Q)$ por el Lema \ref{depth-leq-localized} y la Proposición \ref{depth-leq-codimension}, y la desigualdad es una igualdad y $R_Q$ es Cohen-Macaulay.
+
+Si para todo ideal maximal $P$ se tiene que $R_P$ es Cohen-Macaulay, entonces $\depth(P,R) = \depth(P_P, R_P)$ por el Lema \ref{depth-leq-localized}. Como $\codim(P) = \codim(P_P)$, tenemos que $R$ es Cohen-Macaulay.
+\end{proof}
+
+La propiedad de ser Cohen-Macaulay también se hereda al anillo de polinomios.
+
+\begin{proposition}
+Un anillo $R$ es Cohen-Macaulay sí y sólo si el anillo de polinomios $R[x]$ es Cohen-Macaulay.
+\end{proposition}
+
+\begin{proof}
+Si $R[x]$ es Cohen-Macaulay, entonces como $x$ es regular, $R[x]/(x) = R$ es Cohen-Macaulay.
+
+Para la otra implicación, gracias la Proposición \ref{cohen-macaulay-iff-maximals} basta con probar que cada localización de $R[x]$ en un ideal maximal es Cohen-Macaulay. Sea $P$ un ideal maximal de $R[x]$, y sea $Q = P\cap R$. Como el complemento de $Q$ en $R$ está contenido en el complemento de $P$ en $R[x]$ tenemos
+
+$$ R[x]_P = R_Q[x]_P $$
+
+Así que asumiremos que $R$ es anillo local con $Q$ ideal maximal. El anillo $R[x]/QR[x] = (R/Q)[x]$ es un dominio de ideales principales, así que, módulo $Q$, el ideal $P$ es generado por un polinomio mónico $f(x)$, es decir, $P=(Q,f(x))$. Si $x_1, \dots, x_n$ es una $R$-sucesión en $Q$, entonces esta es también una $R[x]$-sucesión ya que $R[x]$ es un $R$-módulo libre. Más aún, $f(x)$ es regular módulo cualquier ideal de $R$(puesto que es regular módulo el ideal maximal), así que $x_1,\dots,x_n,f(x)$ es una $R[x]$-sucesión. Así, $\depth(P) \geq 1+\depth(Q)$.
+
+Por otro lado, $\codim(P) = 1 + \codim(Q)$ por el teorema del ideal principal. Como $R$ es Cohen-Macaulay, tenemos que $\codim(Q) = \depth(Q)$; por lo tanto, $\codim(P) \leq \depth(P)$. La desigualdad contraria es inmediata de la Proposición \ref{depth-leq-codimension}.
 \end{proof}
